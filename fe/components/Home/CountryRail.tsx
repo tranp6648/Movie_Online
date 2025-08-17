@@ -1,3 +1,4 @@
+// fe/components/Home/CountryRail.tsx
 'use client'
 
 import { useMemo, useRef, useState } from 'react'
@@ -14,7 +15,7 @@ type Group = {
 
 type Props =
   | {
-      // CHẾ ĐỘ CŨ: 1 nhóm
+      // CHẾ ĐỘ CŨ: 1 nhóm (dùng cho 3 section liên tục)
       title: string
       viewAllHref?: string
       items: Show[]
@@ -23,7 +24,7 @@ type Props =
       initialIndex?: never
     }
   | {
-      // CHẾ ĐỘ MỚI: Tabs nhiều nhóm
+      // CHẾ ĐỘ MỚI: nhiều nhóm dạng tab (không dùng ở trang Home hiện tại)
       groups: Group[]
       initialIndex?: number
       title?: string
@@ -32,7 +33,7 @@ type Props =
       accentTitle?: never
     }
 
-// ✅ Type-guard: xác định props có groups
+// Type-guard an toàn
 function hasGroups(p: Props): p is { groups: Group[]; initialIndex?: number } {
   return (p as any).groups !== undefined
 }
@@ -40,25 +41,19 @@ function hasGroups(p: Props): p is { groups: Group[]; initialIndex?: number } {
 export default function CountryRail(props: Props) {
   const isTabbed = hasGroups(props)
 
-  // ✅ Thu hẹp kiểu một lần, dùng xuyên suốt
+  // Thu hẹp kiểu & biến dùng xuyên suốt
   const groups: Group[] = isTabbed ? props.groups : []
-
-  const scroller = useRef<HTMLDivElement>(null)
   const [idx, setIdx] = useState(isTabbed ? props.initialIndex ?? 0 : 0)
-
-  // ✅ Lấy group active an toàn
   const active = isTabbed ? groups[idx] : undefined
 
-  // ✅ Biến hiển thị có fallback
   const title = isTabbed ? (active?.title ?? '') : props.title
   const viewAllHref = isTabbed ? (active?.viewAllHref ?? '#') : (props.viewAllHref ?? '#')
   const items: Show[] = isTabbed ? (active?.items ?? []) : props.items
   const accentTitle =
-    isTabbed
-      ? (active?.accentTitle ?? 'from-white to-white/70')
-      : (props.accentTitle ?? 'from-white to-white/70')
+    isTabbed ? (active?.accentTitle ?? 'from-white to-white/70')
+             : (props.accentTitle ?? 'from-white to-white/70')
 
-  // ✅ Nhãn tab
+  const scroller = useRef<HTMLDivElement>(null)
   const titles = useMemo(() => (isTabbed ? groups.map(g => g.title) : []), [isTabbed, groups])
 
   const scrollBy = (dir: 1 | -1) => {
@@ -69,9 +64,9 @@ export default function CountryRail(props: Props) {
   }
 
   return (
-    <section className="relative mt-8 rounded-3xl border border-white/5 bg-[#171A1F]/60 p-4 lg:p-6">
-      <div className="grid gap-6 lg:grid-cols-[300px,1fr]">
-        {/* Cột trái: title / tabs + View all */}
+    <section className="relative mt-10 rounded-3xl border border-white/5 bg-[#171A1F]/60 p-5 lg:p-7">
+      <div className="grid gap-6 sm:grid-cols-[220px_1fr] md:grid-cols-[240px_1fr] lg:grid-cols-[280px_1fr]">
+        {/* Cột trái: tiêu đề / tabs + link */}
         <div className="rounded-2xl bg-gradient-to-b from-white/[0.02] to-transparent p-3 sm:p-4 lg:p-5">
           {isTabbed ? (
             <div className="space-y-3">
@@ -88,10 +83,8 @@ export default function CountryRail(props: Props) {
                   >
                     <span
                       className={[
-                        'bg-clip-text text-2xl sm:text-3xl xl:text-4xl font-extrabold leading-tight',
-                        activeTab
-                          ? `bg-gradient-to-b ${accentTitle} text-transparent`
-                          : 'text-white/70',
+                        'bg-clip-text text-[28px] sm:text-[32px] xl:text-[36px] font-extrabold leading-tight',
+                        activeTab ? `bg-gradient-to-b ${accentTitle} text-transparent` : 'text-white/70',
                       ].join(' ')}
                     >
                       {t}
@@ -102,7 +95,7 @@ export default function CountryRail(props: Props) {
             </div>
           ) : (
             <h2
-              className={`bg-gradient-to-b ${accentTitle} bg-clip-text text-3xl font-extrabold leading-tight text-transparent sm:text-4xl`}
+              className={`bg-gradient-to-b ${accentTitle} bg-clip-text text-[28px] sm:text-[32px] xl:text-[36px] font-extrabold leading-tight text-transparent`}
             >
               {title}
             </h2>
@@ -116,31 +109,31 @@ export default function CountryRail(props: Props) {
           </Link>
         </div>
 
-        {/* Cột phải: scroller */}
+        {/* Cột phải: scroller + nút cuộn */}
         <div className="relative">
           <div
             ref={scroller}
-            className="no-scrollbar flex snap-x snap-mandatory gap-5 overflow-x-auto pb-2 pr-14"
+            className="no-scrollbar flex snap-x snap-mandatory gap-6 overflow-x-auto pb-2 pr-16"
           >
             {items.map((it) => (
-              <div
-                key={it.id}
-                className="
-                  snap-start flex-[0_0_auto]
-                  min-w-[calc(100%-0px)]
-                  lg:min-w-[calc((100%-20px)/2)]
-                  xl:min-w-[calc((100%-40px)/3)]
-                "
-              >
-                <CountryCard item={it} />
-              </div>
-            ))}
+  <div
+    key={it.id}
+    className="
+      snap-start flex-[0_0_auto]
+      min-w-[calc(100%-0px)]            /* mobile: 1 card */
+      md:min-w-[calc((100%-20px)/2)]   /* md (≥768px): 2 card */
+      xl:min-w-[calc((100%-48px)/3)]   /* xl (≥1280px): 3 card */
+    "
+  >
+    <CountryCard item={it} />
+  </div>
+))}
+
           </div>
 
-          {/* Nút cuộn */}
           <button
             onClick={() => scrollBy(-1)}
-            className="absolute left-2 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full
+            className="absolute left-2 top-1/2 z-[1] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full
                        bg-white text-black shadow-lg ring-1 ring-black/10 backdrop-blur hover:opacity-90"
             aria-label="Cuộn sang trái"
           >
@@ -148,7 +141,7 @@ export default function CountryRail(props: Props) {
           </button>
           <button
             onClick={() => scrollBy(1)}
-            className="absolute right-2 top-1/2 grid h-11 w-11 -translate-y-1/2 place-items-center rounded-full
+            className="absolute right-2 top-1/2 z-[1] grid h-10 w-10 -translate-y-1/2 place-items-center rounded-full
                        bg-white text-black shadow-lg ring-1 ring-black/10 backdrop-blur hover:opacity-90"
             aria-label="Cuộn sang phải"
           >

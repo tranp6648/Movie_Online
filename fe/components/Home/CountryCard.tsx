@@ -1,3 +1,4 @@
+// fe/components/Home/CountryCard.tsx
 'use client'
 
 import Image from 'next/image'
@@ -9,7 +10,8 @@ export default function CountryCard({ item }: { item: Show }) {
 
   return (
     <Link href={href} className="group block">
-      <div className="relative aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-white/10 transition hover:ring-white/20 hover:shadow-lg">
+      <div className="relative aspect-[16/9] overflow-hidden rounded-2xl ring-1 ring-white/10 transition
+                      hover:ring-white/20 hover:shadow-[0_6px_24px_rgba(0,0,0,.35)]">
         <Image
           src={item.poster}
           alt={item.title}

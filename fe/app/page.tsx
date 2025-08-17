@@ -26,18 +26,21 @@ export default function Home() {
       <HomeHighlights />
       <Interest />
       {COUNTRY_RAILS.map((sec) => (
-        <CountryRail
-          groups={COUNTRY_RAILS.map((sec) => ({
-            ...sec,
-            accentTitle:
-              sec.title.includes('Hàn') ? 'from-indigo-200 to-white'
-                : sec.title.includes('Trung') ? 'from-amber-200 to-white'
-                  : 'from-pink-300 to-white',
-          }))}
-          initialIndex={0}
+  <CountryRail
+          key={sec.title}
+          title={sec.title}
+          viewAllHref={sec.viewAllHref}
+          items={sec.items}
+          accentTitle={
+            sec.title.includes("Hàn")
+              ? "from-indigo-200 to-white"
+              : sec.title.includes("Trung")
+              ? "from-amber-200 to-white"
+              : "from-pink-300 to-white"
+          }
         />
+))}
 
-      ))}
 
       <Top10TodaySlider items={TOP10_TODAY} />
       <CinemaRow items={CinemaData} />
