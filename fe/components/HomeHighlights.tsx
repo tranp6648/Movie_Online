@@ -17,8 +17,8 @@ import {
     BadgeCheck,
     Star,
 } from "lucide-react";
-import TopCommentsSlider from "./Comment/TopCommentsSlider";
-import AutoScrollNewComments from "./Comment/AutoScrollNewComments";
+import TopCommentsSlider from "./Home/Comment/TopCommentsSlider";
+import AutoScrollNewComments from "./Home/Comment/AutoScrollNewComments";
 
 /* --- data giữ nguyên của bạn (rút gọn ở đây cho ngắn) --- */
 type TopComment = { id: string; user: { name: string; avatar: string; badge?: "female" | "infinity" | "star" }; text: string; cover: string; stats: { views: number; likes: number; comments: number } };
