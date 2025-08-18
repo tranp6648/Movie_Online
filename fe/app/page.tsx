@@ -16,6 +16,8 @@ import { UpcomingRailDetail } from "@/data/UpComingRailData";
 import Interest from "@/components/Home/Interest";
 import { COUNTRY_RAILS } from "@/data/HomeCountryRails";
 import CountryRail from "@/components/Home/CountryRail";
+import {MovieSliderData} from "@/data/MovieSliderData";
+import {MovieSlider as MovieSlieders} from "@/components/Home/MovieSlider";
 
 
 export default function Home() {
@@ -41,7 +43,7 @@ export default function Home() {
         />
 ))}
 
-
+        <MovieSlieders movies={MovieSliderData} title="Phim Điện Ảnh Mới Coóng"/>
       <Top10TodaySlider items={TOP10_TODAY} />
       <CinemaRow items={CinemaData} />
       <Top10TodaySlider items={TOP10_TODAY} title="Top 10 phim lẻ hôm nay" />
