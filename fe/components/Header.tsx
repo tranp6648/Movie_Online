@@ -56,7 +56,7 @@ export default function Header() {
               <li><a href="/general-view" className="hover:text-yellow-400 transition-colors">Xem Chung</a></li>
               <li><a href="#" className="hover:text-yellow-400 transition-colors">Quốc gia ▾</a></li>
               <li><a href="#" className="hover:text-yellow-400 transition-colors">Diễn Viên</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Lịch chiếu</a></li>
+              <li><Link href="/Schedule" className="hover:text-yellow-400 transition-colors">Lịch chiếu</Link></li>
               <li>
                 <a href="#" className="hover:text-yellow-400 transition-colors inline-flex items-center">
                   Rô Bóng
