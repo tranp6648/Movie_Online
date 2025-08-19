@@ -13,6 +13,8 @@ images: {
       { protocol: 'https', hostname: 'www.themoviedb.com' },
       { protocol: 'https', hostname: 'cdn.discordapp.com' },
       { protocol: 'https', hostname: 'i.ytimg.com' },
+      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "picsum.photos" },
       // add any others you use:
       // { protocol: 'https', hostname: 'image.tmdb.org' },
     ],
