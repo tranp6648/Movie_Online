@@ -9,6 +9,7 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
   const [openCountry, setOpenCountry] = useState(false);
+  const [openType, setOpenType] = useState(false);
 
 
   useEffect(() => {
@@ -52,11 +53,48 @@ export default function Header() {
           <nav className="hidden [@media(min-width:1490px)]:flex text-sm font-medium">
             <ul className="flex items-center gap-5 text-gray-200">
               <li><a href="#" className="hover:text-yellow-400 transition-colors">Chủ Đề</a></li>
-              <li><Link href="/Type" className="hover:text-yellow-400 transition-colors">Thể loại ▾</Link></li>
+              <li className="relative">
+                <button
+                  onClick={() => setOpenType(!openType)}
+                  className="hover:text-yellow-400 transition-colors flex items-center gap-1"
+                >
+                  Thể loại ▾
+                </button>
+
+                {/* Menu dropdown */}
+                {openType && (
+                  <ul className="absolute left-0 mt-2 w-48 bg-zinc-900 rounded-lg shadow-lg ring-1 ring-white/10 overflow-hidden z-50">
+                    <li>
+                      <a
+                        href="/Type/co-trang"
+                        className="block px-4 py-2 hover:bg-zinc-800 transition"
+                      >
+                        Phim Cổ Trang
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/Type/tinh-cam"
+                        className="block px-4 py-2 hover:bg-zinc-800 transition"
+                      >
+                        Phim Tình Cảm
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/Type/hanh-dong"
+                        className="block px-4 py-2 hover:bg-zinc-800 transition"
+                      >
+                        Phim Hành Động
+                      </a>
+                    </li>
+                  </ul>
+                )}
+              </li>
               <li><Link href="/Movie" className="hover:text-yellow-400 transition-colors">Phim Lẻ</Link></li>
               <li><a href="/Series" className="hover:text-yellow-400 transition-colors">Phim Bộ</a></li>
               <li><a href="/general-view" className="hover:text-yellow-400 transition-colors">Xem Chung</a></li>
-          
+
               <li className="relative">
                 <button
                   onClick={() => setOpenCountry(!openCountry)}
@@ -79,7 +117,7 @@ export default function Header() {
               </li>
 
               <li><a href="/actor" className="hover:text-yellow-400 transition-colors">Diễn Viên</a></li>
-  <li><Link href="/Schedule" className="hover:text-yellow-400 transition-colors">Lịch chiếu</Link></li>
+              <li><Link href="/Schedule" className="hover:text-yellow-400 transition-colors">Lịch chiếu</Link></li>
               <li>
                 <a href="#" className="hover:text-yellow-400 transition-colors inline-flex items-center">
                   Rô Bóng
