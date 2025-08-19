@@ -89,7 +89,7 @@ export default function MovieListGrid({
         </div>
 
         {/* Grid */}
-        <ul className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-x-6 gap-y-10">
+        <ul className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-10 gap-x-10 gap-y-10">
           {items.map((m) => (
             <li key={m.id} className="group">
               <Link href={m.href ?? "#"} className="block">
