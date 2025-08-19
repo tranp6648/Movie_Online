@@ -92,7 +92,7 @@ export default function MovieListGrid({
         <ul className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-10 gap-x-10 gap-y-10">
           {items.map((m) => (
             <li key={m.id} className="group">
-              <Link href={m.href ?? "#"} className="block">
+              <Link href={"/detail/1"} className="block">
                 <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-white/5 ring-1 ring-white/10 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.45)] group-hover:shadow-[0_14px_30px_-12px_rgba(0,0,0,0.55)] transition-shadow">
                   <Image
                     src={m.poster}
