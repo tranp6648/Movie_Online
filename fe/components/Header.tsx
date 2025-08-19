@@ -77,7 +77,7 @@ export default function Header() {
                 )}
               </li>
 
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Diễn Viên</a></li>
+              <li><a href="/actor" className="hover:text-yellow-400 transition-colors">Diễn Viên</a></li>
               <li><a href="#" className="hover:text-yellow-400 transition-colors">Lịch chiếu</a></li>
               <li>
                 <a href="#" className="hover:text-yellow-400 transition-colors inline-flex items-center">
