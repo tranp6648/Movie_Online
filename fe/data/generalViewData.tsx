@@ -1,31 +1,57 @@
-import type { WideMovie } from '../components/general/MovieCardWide'
+import type { WideMovie } from '@/components/general/MovieCardWide'
+import type { WatchEvent } from '@/components/general/WatchCard'
+
+// poster thực tế
+const posters = [
+  "https://image.tmdb.org/t/p/w780/fuVuDYrs8sxvEolnYr0wCSvtyTi.jpg", // Stranger from Hell
+  "https://image.tmdb.org/t/p/w780/5jkE2SzR5uR2egEb1rRhF22JyWN.jpg", // Harry Potter
+  "https://image.tmdb.org/t/p/w780/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg", // Muộn Hồn Đoạt Xác
+]
+
+const avatar = (i: number) => `https://i.pravatar.cc/80?img=${(i % 70) + 1}`
 
 export const premieres: WideMovie[] = [
   {
-    id: '1',
-    title: 'Rạp Phim Cổ 2: Phong Thần 2 - Chiến Hỏa Tây Kỳ',
-    subtitle: 'Phong Thần 2: Chiến Hỏa Tây Kỳ',
-    poster: '/posters/phong-than-2.jpg',
+    id: 'prem-1',
+    title: 'Người Lạ Đến Từ Địa Ngục',
+    subtitle: 'Stranger from Hell',
+    poster: posters[0],
     status: 'done',
-    source: 'Rố Phim',
+    source: 'Netflix',
     timeAgo: '13 ngày trước',
   },
   {
-    id: '2',
-    title: 'Na Tra 2 - Cùng xem bản Thuyết Minh với Cờ 2',
-    subtitle: 'Na Tra 2: Ma Đổng Náo Hải',
-    poster: '/posters/na-tra-2.jpg',
+    id: 'prem-2',
+    title: 'Harry Potter và Phòng Chứa Bí Mật',
+    subtitle: 'Harry Potter and the Chamber of Secrets',
+    poster: posters[1],
     status: 'done',
-    source: 'Rố Phim',
+    source: 'Warner Bros',
     timeAgo: '18 ngày trước',
   },
   {
-    id: '3',
-    title: 'Ngưu Lang Chức Nữ - TẬP CUỐI',
-    subtitle: 'P.1 - T.12 - Ngưu Lang Chức Nữ',
-    poster: '/posters/nguu-lang-chuc-nu.jpg',
+    id: 'prem-3',
+    title: 'Muộn Hồn Đoạt Xác',
+    subtitle: 'The Possession',
+    poster: posters[2],
     status: 'done',
-    source: 'Rố Phim',
+    source: 'Lionsgate',
     timeAgo: '21 ngày trước',
   },
 ]
+
+// 40 phòng xem (20/phân trang)
+export const watchTogether: WatchEvent[] = Array.from({ length: 40 }).map((_, i) => {
+  const st = i % 3 === 0 ? 'live' : i % 3 === 1 ? 'upcoming' : 'done'
+  return {
+    id: `wt-${i + 1}`,
+    title: `Cùng xem phim số ${i + 1}`,
+    subtitle: st === 'live' ? 'Đang live' : st === 'upcoming' ? 'Sắp chiếu' : 'Đã kết thúc',
+    poster: posters[i % posters.length],
+    status: st as WatchEvent['status'],
+    hostName: `Host ${i + 1}`,
+    hostAvatar: avatar(i + 1),
+    timeAgo: `${(i % 11) + 1} phút trước`,
+    viewers: st === 'live' ? 1 + (i % 10) : undefined,
+  }
+})

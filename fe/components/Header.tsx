@@ -2,11 +2,14 @@
 import { useEffect, useState } from "react";
 import { Search, User, Download, Menu, X } from "lucide-react";
 import Link from "next/link";
+import { ChevronDown } from "lucide-react";
 
 export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
+  const [openCountry, setOpenCountry] = useState(false);
+
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10);
@@ -24,9 +27,8 @@ export default function Header() {
 
   return (
     <header
-      className={`w-full fixed top-0 left-0 z-50 transition-colors duration-300 ${
-        scrolled ? "bg-[#0F111A]/95 backdrop-blur border-b border-white/10" : "bg-transparent"
-      }`}
+      className={`w-full fixed top-0 left-0 z-50 transition-colors duration-300 ${scrolled ? "bg-[#0F111A]/95 backdrop-blur border-b border-white/10" : "bg-transparent"
+        }`}
     >
       {/* TOP BAR */}
       <div className="mx-auto flex items-center justify-between px-3 sm:px-4 md:px-6 lg:px-8 py-2 sm:py-3">
@@ -47,16 +49,37 @@ export default function Header() {
         {/* CENTER: NAV + SEARCH CÙNG HÀNG (desktop) */}
         <div className="flex-1 flex max-[767px]:hidden items-center justify-center gap-4">
           {/* Nav desktop giữ nguyên item */}
-        <nav className="hidden [@media(min-width:1490px)]:flex text-sm font-medium">
+          <nav className="hidden [@media(min-width:1490px)]:flex text-sm font-medium">
             <ul className="flex items-center gap-5 text-gray-200">
               <li><a href="#" className="hover:text-yellow-400 transition-colors">Chủ Đề</a></li>
               <li><Link href="/Type" className="hover:text-yellow-400 transition-colors">Thể loại ▾</Link></li>
               <li><Link href="/Movie" className="hover:text-yellow-400 transition-colors">Phim Lẻ</Link></li>
               <li><a href="/Series" className="hover:text-yellow-400 transition-colors">Phim Bộ</a></li>
               <li><a href="/general-view" className="hover:text-yellow-400 transition-colors">Xem Chung</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Quốc gia ▾</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Diễn Viên</a></li>
-              <li><Link href="/Schedule" className="hover:text-yellow-400 transition-colors">Lịch chiếu</Link></li>
+          
+              <li className="relative">
+                <button
+                  onClick={() => setOpenCountry(!openCountry)}
+                  className="flex items-center gap-1 hover:text-yellow-400 transition-colors"
+                >
+                  Quốc gia
+                  <ChevronDown className={`h-4 w-4 transition-transform ${openCountry ? "rotate-180" : ""}`} />
+                </button>
+                {openCountry && (
+                  <div className="absolute left-0 mt-2 w-40 rounded-md bg-[#0F111A] border border-white/10 shadow-lg z-50">
+                    <ul className="py-2 text-sm text-white">
+                      <li><a href="/country/uk" className="block px-4 py-2 hover:bg-white/10">Anh</a></li>
+                      <li><a href="/country/us" className="block px-4 py-2 hover:bg-white/10">Mỹ</a></li>
+                      <li><a href="/country/kr" className="block px-4 py-2 hover:bg-white/10">Hàn Quốc</a></li>
+                      <li><a href="/country/jp" className="block px-4 py-2 hover:bg-white/10">Nhật Bản</a></li>
+                      <li><a href="/country/cn" className="block px-4 py-2 hover:bg-white/10">Trung Quốc</a></li>
+                    </ul>
+                  </div>
+                )}
+              </li>
+
+              <li><a href="/actor" className="hover:text-yellow-400 transition-colors">Diễn Viên</a></li>
+  <li><Link href="/Schedule" className="hover:text-yellow-400 transition-colors">Lịch chiếu</Link></li>
               <li>
                 <a href="#" className="hover:text-yellow-400 transition-colors inline-flex items-center">
                   Rô Bóng
@@ -143,7 +166,7 @@ export default function Header() {
           </div>
 
           <nav className="mt-4 text-sm space-y-1 text-gray-200">
-            {["Chủ Đề","Thể loại","Phim Lẻ","Phim Bộ","Xem Chung","Quốc gia","Diễn Viên","Lịch chiếu"].map((item) => (
+            {["Chủ Đề", "Thể loại", "Phim Lẻ", "Phim Bộ", "Xem Chung", "Quốc gia", "Diễn Viên", "Lịch chiếu"].map((item) => (
               <a key={item} href="#" className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400" onClick={() => setMenuOpen(false)}>
                 {item}
               </a>
