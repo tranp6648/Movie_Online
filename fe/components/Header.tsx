@@ -53,7 +53,7 @@ export default function Header() {
               <li><Link href="/Type" className="hover:text-yellow-400 transition-colors">Thể loại ▾</Link></li>
               <li><Link href="/Movie" className="hover:text-yellow-400 transition-colors">Phim Lẻ</Link></li>
               <li><a href="/Series" className="hover:text-yellow-400 transition-colors">Phim Bộ</a></li>
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Xem Chung</a></li>
+              <li><a href="/general-view" className="hover:text-yellow-400 transition-colors">Xem Chung</a></li>
               <li><a href="#" className="hover:text-yellow-400 transition-colors">Quốc gia ▾</a></li>
               <li><a href="#" className="hover:text-yellow-400 transition-colors">Diễn Viên</a></li>
               <li><a href="#" className="hover:text-yellow-400 transition-colors">Lịch chiếu</a></li>
