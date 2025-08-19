@@ -52,7 +52,7 @@ export default function Header() {
           {/* Nav desktop giữ nguyên item */}
           <nav className="hidden [@media(min-width:1490px)]:flex text-sm font-medium">
             <ul className="flex items-center gap-5 text-gray-200">
-              <li><a href="#" className="hover:text-yellow-400 transition-colors">Chủ Đề</a></li>
+              <li><Link href="/Topic" className="hover:text-yellow-400 transition-colors">Chủ Đề</Link></li>
               <li className="relative">
                 <button
                   onClick={() => setOpenType(!openType)}
