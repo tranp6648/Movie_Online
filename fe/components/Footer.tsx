@@ -25,11 +25,8 @@ const SOCIALS = [
   { href: '#', Icon: Github, label: 'Github' },
 ]
 
-/**
- * Footer giống layout mẫu RoPhim (badge, logo, social, 2 hàng link, mô tả, ©)
- */
 export default function Footer() {
-  // Nút scroll-to-top (nếu bạn đã có chỗ khác thì bỏ block này)
+  // Scroll-to-top button
   const [showToTop, setShowToTop] = useState(false)
   useEffect(() => {
     const onScroll = () => setShowToTop(window.scrollY > 400)
@@ -42,9 +39,10 @@ export default function Footer() {
     <footer className="mt-16 border-t border-white/10 bg-[#0f1217]">
       <div className="mx-auto w-full max-w-7xl px-4 py-8 md:px-6 lg:px-8">
 
-        {/* Logo + Social icons */}
-        <div className="mb-6 flex items-center justify-between gap-6">
-          <div className="flex items-center gap-3">
+        {/* Logo + Social */}
+        <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          {/* Logo */}
+          <div className="flex items-center gap-3 justify-center md:justify-start">
             <Image
               src="/logo.svg"
               alt="RoPhim"
@@ -53,13 +51,14 @@ export default function Footer() {
               className="h-11 w-11"
               priority
             />
-            <div className="leading-tight">
+            <div className="leading-tight text-center md:text-left">
               <div className="text-2xl font-bold text-white">RoPhim</div>
               <div className="text-sm text-white/70">Phim hay cá rỗ</div>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
+          {/* Social icons */}
+          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
             {SOCIALS.map(({ href, Icon, label }) => (
               <Link
                 key={label}
@@ -73,43 +72,25 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Hàng link 1 */}
-        <nav className="mb-3 flex flex-wrap items-center gap-x-8 gap-y-2 text-[15px]">
-          <Link href="#" className="text-white hover:text-white/80">
-            Hỏi-Đáp
-          </Link>
-          <Link href="#" className="text-white hover:text-white/80">
-            Chính sách bảo mật
-          </Link>
-          <Link href="#" className="text-white hover:text-white/80">
-            Điều khoản sử dụng
-          </Link>
-          <Link href="#" className="text-white hover:text-white/80">
-            Giới thiệu
-          </Link>
-          <Link href="#" className="text-white hover:text-white/80">
-            Liên hệ
-          </Link>
+        {/* Links row 1 */}
+        <nav className="mb-3 grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-2 text-[15px] md:flex md:flex-wrap md:gap-x-8">
+          <Link href="#" className="text-white hover:text-white/80">Hỏi-Đáp</Link>
+          <Link href="#" className="text-white hover:text-white/80">Chính sách bảo mật</Link>
+          <Link href="#" className="text-white hover:text-white/80">Điều khoản sử dụng</Link>
+          <Link href="#" className="text-white hover:text-white/80">Giới thiệu</Link>
+          <Link href="#" className="text-white hover:text-white/80">Liên hệ</Link>
         </nav>
 
-        {/* Hàng link 2 */}
-        <nav className="mb-6 flex flex-wrap items-center gap-x-10 gap-y-2 text-[15px]">
-          <Link href="#" className="text-white/80 hover:text-white">
-            Dongphim
-          </Link>
-          <Link href="#" className="text-white/80 hover:text-white">
-            Ghienphim
-          </Link>
-          <Link href="#" className="text-white/80 hover:text-white">
-            Motphim
-          </Link>
-          <Link href="#" className="text-white/80 hover:text-white">
-            Subnhanh
-          </Link>
+        {/* Links row 2 */}
+        <nav className="mb-6 grid grid-cols-2 gap-x-6 gap-y-2 text-[15px] sm:flex sm:flex-wrap sm:gap-x-10">
+          <Link href="#" className="text-white/80 hover:text-white">Dongphim</Link>
+          <Link href="#" className="text-white/80 hover:text-white">Ghienphim</Link>
+          <Link href="#" className="text-white/80 hover:text-white">Motphim</Link>
+          <Link href="#" className="text-white/80 hover:text-white">Subnhanh</Link>
         </nav>
 
-        {/* Đoạn mô tả */}
-        <p className="max-w-5xl text-[15px] leading-7 text-white/80">
+        {/* Description */}
+        <p className="max-w-5xl text-[15px] leading-7 text-white/80 text-center md:text-left">
           RoPhim – Phim hay cá rỗ – Trang xem phim online chất lượng cao miễn
           phí Vietsub, thuyết minh, lồng tiếng full HD. Kho phim mới khổng lồ,
           phim chiếu rạp, phim bộ, phim lẻ từ nhiều quốc gia như Việt Nam, Hàn
@@ -117,16 +98,18 @@ export default function Footer() {
           phá nền tảng phim trực tuyến hay nhất 2024 chất lượng 4K!
         </p>
 
-        {/* © */}
-        <div className="mt-6 text-[15px] text-white/60">© 2024 RoPhim</div>
+        {/* Copyright */}
+        <div className="mt-6 text-[15px] text-white/60 text-center md:text-left">
+          © 2024 RoPhim
+        </div>
       </div>
 
-      {/* (Tuỳ chọn) nút scroll to top nếu bạn chưa có sẵn */}
+      {/* Scroll to top */}
       {showToTop && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll to top"
-          className="fixed bottom-6 right-6 grid h-12 w-12 place-items-center rounded-xl bg-white text-black shadow-lg ring-1 ring-black/10"
+          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 grid h-12 w-12 place-items-center rounded-xl bg-white text-black shadow-lg ring-1 ring-black/10"
         >
           ↑
         </button>
