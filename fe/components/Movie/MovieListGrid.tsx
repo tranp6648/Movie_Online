@@ -73,42 +73,54 @@ export default function MovieListGrid({
 
   return (
     <section className={`w-full ${className}`} aria-labelledby="movie-grid-heading">
-      <div className="max-w-9xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* container: tighter on mobile, max on xl */}
+      <div className="mx-auto w-full max-w-screen-2xl px-3 sm:px-5 lg:px-8">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6 sm:mb-8">
-          <h2 id="movie-grid-heading" className="text-white text-2xl sm:text-3xl font-semibold">
+        <div className="mb-4 sm:mb-6 lg:mb-8 flex flex-wrap items-center justify-between gap-3">
+          <h2 id="movie-grid-heading" className="text-white text-lg sm:text-2xl lg:text-3xl font-semibold">
             {heading}
           </h2>
 
           {showFilter && (
-            <button className="inline-flex items-center gap-2 text-white/85 hover:text-white text-sm px-2.5 py-1.5 rounded-md bg-white/5 ring-1 ring-white/10">
+            <button className="inline-flex items-center gap-2 text-white/85 hover:text-white text-xs sm:text-sm px-2 py-1 sm:px-2.5 sm:py-1.5 rounded-md bg-white/5 ring-1 ring-white/10">
               <Filter className="h-4 w-4" />
-              Bộ lọc
+              <span className="hidden xs:inline">Bộ lọc</span>
             </button>
           )}
         </div>
 
         {/* Grid */}
-        <ul className="grid grid-cols-5 sm:grid-cols-6 lg:grid-cols-7 xl:grid-cols-8 2xl:grid-cols-10 gap-x-10 gap-y-10">
+        <ul
+          className="
+            grid gap-x-3 gap-y-6
+            grid-cols-2
+            sm:grid-cols-3 sm:gap-x-6 sm:gap-y-8
+            md:grid-cols-4
+            lg:grid-cols-5 lg:gap-x-8
+            xl:grid-cols-6
+            2xl:grid-cols-8 2xl:gap-x-10 2xl:gap-y-10
+          "
+        >
           {items.map((m) => (
             <li key={m.id} className="group">
-              <Link href={"/detail/1"} className="block">
-                <div className="relative aspect-[2/3] w-full overflow-hidden rounded-xl bg-white/5 ring-1 ring-white/10 shadow-[0_8px_24px_-12px_rgba(0,0,0,0.45)] group-hover:shadow-[0_14px_30px_-12px_rgba(0,0,0,0.55)] transition-shadow">
+              <Link href={m.href ?? `/detail/${m.id}`} className="block">
+                <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg sm:rounded-xl bg-white/5 ring-1 ring-white/10 shadow-[0_6px_18px_-10px_rgba(0,0,0,0.45)] group-hover:shadow-[0_14px_30px_-12px_rgba(0,0,0,0.55)] transition-shadow">
                   <Image
                     src={m.poster}
                     alt={m.title}
                     fill
-                    sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                    loading="lazy"
+                    sizes="(max-width: 640px) 45vw, (max-width: 768px) 30vw, (max-width: 1024px) 22vw, (max-width: 1536px) 16vw, 12vw"
                     className="object-cover object-center transform will-change-transform group-hover:scale-[1.02] transition-transform duration-200"
                   />
 
                   {/* Badges bottom center */}
                   {!!m.badges?.length && (
-                    <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-2">
+                    <div className="absolute bottom-1.5 sm:bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1.5 sm:gap-2">
                       {m.badges.map((b, i) => (
                         <span
                           key={i}
-                          className={`rounded-md px-2 py-1 text-[10px] font-semibold ring-1 ${badgeStyles[b.color ?? "gray"]}`}
+                          className={`rounded-md px-1.5 sm:px-2 py-0.5 sm:py-1 text-[9px] sm:text-[10px] font-semibold ring-1 ${badgeStyles[b.color ?? "gray"]}`}
                         >
                           {b.text}
                         </span>
@@ -118,10 +130,10 @@ export default function MovieListGrid({
                 </div>
 
                 {/* Title & subtitle */}
-                <div className="mt-3 space-y-1">
-                  <h3 className="text-white font-semibold leading-snug line-clamp-1">{m.title}</h3>
+                <div className="mt-2 sm:mt-3 space-y-0.5 sm:space-y-1">
+                  <h3 className="text-white text-sm sm:text-base font-semibold leading-snug line-clamp-1">{m.title}</h3>
                   {m.subtitle && (
-                    <p className="text-white/60 text-sm leading-snug line-clamp-1">{m.subtitle}</p>
+                    <p className="text-white/60 text-xs sm:text-sm leading-snug line-clamp-1">{m.subtitle}</p>
                   )}
                 </div>
               </Link>
@@ -130,14 +142,14 @@ export default function MovieListGrid({
         </ul>
 
         {/* Pagination */}
-        <div className="flex items-center justify-center gap-3 mt-10">
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mt-6 sm:mt-8 lg:mt-10">
           {/* Client-mode buttons */}
           {onPageChange ? (
             <>
               {Prev}
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-3 h-10 text-white/80">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-2.5 sm:px-3 h-9 sm:h-10 text-white/80 text-sm">
                 <span className="hidden sm:inline">Trang</span>
-                <span className="inline-flex items-center gap-1 rounded-md bg-black/40 px-2 h-7 text-white">
+                <span className="inline-flex items-center gap-1 rounded-md bg-black/40 px-1.5 sm:px-2 h-7 text-white">
                   {page}
                 </span>
                 <span className="opacity-60">/</span>
@@ -147,18 +159,18 @@ export default function MovieListGrid({
             </>
           ) : (
             // Link-mode
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <Link
                 aria-disabled={!canPrev}
                 href={canPrev ? (getPageHref?.(page - 1) ?? `?page=${page - 1}`) : "#"}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 text-white/80 hover:text-white aria-disabled:opacity-40"
+                className="inline-flex h-9 sm:h-10 w-9 sm:w-10 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 text-white/80 hover:text-white aria-disabled:opacity-40"
               >
                 <ChevronLeft className="h-5 w-5" />
               </Link>
 
-              <div className="inline-flex items-center gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-3 h-10 text-white/80">
+              <div className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white/5 ring-1 ring-white/10 px-2.5 sm:px-3 h-9 sm:h-10 text-white/80 text-sm">
                 <span className="hidden sm:inline">Trang</span>
-                <span className="inline-flex items-center gap-1 rounded-md bg-black/40 px-2 h-7 text-white">
+                <span className="inline-flex items-center gap-1 rounded-md bg-black/40 px-1.5 sm:px-2 h-7 text-white">
                   {page}
                 </span>
                 <span className="opacity-60">/</span>
@@ -168,7 +180,7 @@ export default function MovieListGrid({
               <Link
                 aria-disabled={!canNext}
                 href={canNext ? (getPageHref?.(page + 1) ?? `?page=${page + 1}`) : "#"}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 text-white/80 hover:text-white aria-disabled:opacity-40"
+                className="inline-flex h-9 sm:h-10 w-9 sm:w-10 items-center justify-center rounded-full bg-white/5 ring-1 ring-white/10 text-white/80 hover:text-white aria-disabled:opacity-40"
               >
                 <ChevronRight className="h-5 w-5" />
               </Link>
