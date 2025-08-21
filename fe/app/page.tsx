@@ -24,7 +24,7 @@ export default function Home() {
   return (
 
     <>
- //as
+ 
       <MovieSlider />
       <HomeHighlights />
       <Interest />
