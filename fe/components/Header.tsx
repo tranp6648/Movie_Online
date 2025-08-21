@@ -204,11 +204,164 @@ export default function Header() {
           </div>
 
           <nav className="mt-4 text-sm space-y-1 text-gray-200">
-            {["Chủ Đề", "Thể loại", "Phim Lẻ", "Phim Bộ", "Xem Chung", "Quốc gia", "Diễn Viên", "Lịch chiếu"].map((item) => (
-              <a key={item} href="#" className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400" onClick={() => setMenuOpen(false)}>
-                {item}
-              </a>
-            ))}
+            <nav className="mt-4 text-sm space-y-1 text-gray-200">
+  {/* Chủ Đề */}
+  <Link
+    href="/Topic"
+    className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+    onClick={() => setMenuOpen(false)}
+  >
+    Chủ Đề
+  </Link>
+
+  {/* Thể loại */}
+  <div className="space-y-1">
+    <button
+      onClick={() => setOpenType(!openType)}
+      className="w-full flex justify-between items-center rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+    >
+      Thể loại
+      <ChevronDown
+        className={`h-4 w-4 transition-transform ${openType ? "rotate-180" : ""}`}
+      />
+    </button>
+    {openType && (
+      <div className="ml-4 space-y-1">
+        <Link
+          href="/Type/co-trang"
+          className="block rounded-md px-3 py-2 hover:bg-white/10"
+          onClick={() => setMenuOpen(false)}
+        >
+          Phim Cổ Trang
+        </Link>
+        <Link
+          href="/Type/tinh-cam"
+          className="block rounded-md px-3 py-2 hover:bg-white/10"
+          onClick={() => setMenuOpen(false)}
+        >
+          Phim Tình Cảm
+        </Link>
+        <Link
+          href="/Type/hanh-dong"
+          className="block rounded-md px-3 py-2 hover:bg-white/10"
+          onClick={() => setMenuOpen(false)}
+        >
+          Phim Hành Động
+        </Link>
+      </div>
+    )}
+  </div>
+
+  {/* Phim lẻ */}
+  <Link
+    href="/Movie"
+    className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+    onClick={() => setMenuOpen(false)}
+  >
+    Phim Lẻ
+  </Link>
+
+  {/* Phim Bộ */}
+  <Link
+    href="/Series"
+    className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+    onClick={() => setMenuOpen(false)}
+  >
+    Phim Bộ
+  </Link>
+
+  {/* Xem Chung */}
+  <Link
+    href="/general-view"
+    className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+    onClick={() => setMenuOpen(false)}
+  >
+    Xem Chung
+  </Link>
+
+  {/* Quốc gia */}
+  <div className="space-y-1">
+    <button
+      onClick={() => setOpenCountry(!openCountry)}
+      className="w-full flex justify-between items-center rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+    >
+      Quốc gia
+      <ChevronDown
+        className={`h-4 w-4 transition-transform ${openCountry ? "rotate-180" : ""}`}
+      />
+    </button>
+    {openCountry && (
+      <div className="ml-4 space-y-1">
+        <Link
+          href="/country/uk"
+          className="block rounded-md px-3 py-2 hover:bg-white/10"
+          onClick={() => setMenuOpen(false)}
+        >
+          Anh
+        </Link>
+        <Link
+          href="/country/us"
+          className="block rounded-md px-3 py-2 hover:bg-white/10"
+          onClick={() => setMenuOpen(false)}
+        >
+          Mỹ
+        </Link>
+        <Link
+          href="/country/kr"
+          className="block rounded-md px-3 py-2 hover:bg-white/10"
+          onClick={() => setMenuOpen(false)}
+        >
+          Hàn Quốc
+        </Link>
+        <Link
+          href="/country/jp"
+          className="block rounded-md px-3 py-2 hover:bg-white/10"
+          onClick={() => setMenuOpen(false)}
+        >
+          Nhật Bản
+        </Link>
+        <Link
+          href="/country/cn"
+          className="block rounded-md px-3 py-2 hover:bg-white/10"
+          onClick={() => setMenuOpen(false)}
+        >
+          Trung Quốc
+        </Link>
+      </div>
+    )}
+  </div>
+
+  {/* Diễn Viên */}
+  <Link
+    href="/actor"
+    className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+    onClick={() => setMenuOpen(false)}
+  >
+    Diễn Viên
+  </Link>
+
+  {/* Lịch chiếu */}
+  <Link
+    href="/Schedule"
+    className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+    onClick={() => setMenuOpen(false)}
+  >
+    Lịch chiếu
+  </Link>
+
+  {/* Rô Bóng */}
+  <Link
+    href="/ro-bong"
+    className="flex items-center px-3 py-2 rounded-md hover:bg-white/10"
+    onClick={() => setMenuOpen(false)}
+  >
+    Rô Bóng
+    <span className="ml-2 text-[10px] font-bold bg-yellow-400 text-black px-1.5 py-0.5 rounded-md shadow">
+      NEW
+    </span>
+  </Link>
+</nav>
+
             <a href="#" className="flex items-center px-3 py-2 rounded-md hover:bg-white/10">
               Rô Bóng
               <span className="ml-2 text-[10px] font-bold bg-yellow-400 text-black px-1.5 py-0.5 rounded-md shadow">NEW</span>
