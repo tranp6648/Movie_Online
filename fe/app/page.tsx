@@ -22,7 +22,7 @@ import {MovieSlider as MovieSlieders} from "@/components/Home/MovieSlider";
 
 export default function Home() {
   return (
-
+//a
     <>
       <MovieSlider />
       <HomeHighlights />
