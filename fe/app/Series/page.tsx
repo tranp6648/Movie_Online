@@ -7,12 +7,13 @@ export const metadata = {
   title: "Phim bộ | RoPhim",
 };
 
-type Props = {
+type PageProps = {
+  params?: { [key: string]: string };
   searchParams?: { [key: string]: string | string[] | undefined };
 };
 
 
-export default function SeriesPage({ searchParams }: Props) {
+export default function SeriesPage({ searchParams }: PageProps) {
   const page = Number(searchParams?.page) || 1;
 
   return (
