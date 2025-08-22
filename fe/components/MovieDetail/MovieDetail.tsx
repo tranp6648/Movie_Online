@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Play, Heart, Plus, Share2, MessageSquare } from "lucide-react";
+import { Play, Heart, Plus, Share2, MessageSquare, Link } from "lucide-react";
 
 export type Episode = { id: number; label: string; href: string };
 export type Actor = { name: string; avatar: string };
@@ -143,13 +143,13 @@ export default function MovieDetail({
           {tab === "episodes" && (
             <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
               {episodes.map((ep) => (
-                <a
+                <Link
                   key={ep.id}
                   href={ep.href}
                   className="px-3 py-2 rounded-md bg-white/10 hover:bg-white/20 text-center text-sm"
                 >
                   {ep.label}
-                </a>
+                </Link>
               ))}
             </div>
           )}

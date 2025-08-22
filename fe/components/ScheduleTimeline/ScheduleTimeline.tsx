@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, CalendarDays } from "lucide-react";
+import { ChevronLeft, ChevronRight, CalendarDays, Link } from "lucide-react";
 
 export type Day = {
   date: string;
@@ -132,7 +132,7 @@ export default function ScheduleTimeline({
               {items.map((it) => {
                 const w = widthPct(it.durationMin, startHour, endHour);
                 return (
-                  <a
+                  <Link
                     key={it.id}
                     href={it.href ?? "#"}
                     className="w-full sm:w-auto h-auto sm:h-28 rounded-lg bg-white/10 text-white p-3 flex flex-col overflow-hidden hover:bg-white/20 transition sm:min-w-[260px] md:min-w-[300px]"
@@ -154,7 +154,7 @@ export default function ScheduleTimeline({
                         <div className="h-1.5 rounded bg-white/60" style={{ width: `${w}%` }} />
                       </div>
                     </div>
-                  </a>
+                  </Link>
                 );
               })}
             </div>

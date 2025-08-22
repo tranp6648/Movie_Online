@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Play, Heart, Info } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play, Heart, Info, Link } from "lucide-react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
@@ -97,10 +97,10 @@ const AnimeSpotlight: React.FC<AnimeSpotlightProps> = ({
       <div className="mb-4 flex items-center justify-between gap-4">
         <h2 className="text-xl md:text-2xl font-bold text-white">{title}</h2>
         {href ? (
-          <a href={href} className="inline-flex items-center gap-1 rounded-full border border-white/10 px-3 py-1 text-sm text-white/80 hover:text-white hover:border-white/20">
+          <Link href={href} className="inline-flex items-center gap-1 rounded-full border border-white/10 px-3 py-1 text-sm text-white/80 hover:text-white hover:border-white/20">
             Xem tất cả
             <ChevronRight className="h-4 w-4" />
-          </a>
+          </Link>
         ) : null}
       </div>
 

@@ -6,6 +6,7 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Link } from "lucide-react";
 
 export type MovieSliderItem = {
     id: string | number;
@@ -29,12 +30,12 @@ export function MovieSlider({movies, title, href}: MovieSliderProps) {
                     {title ?? "Phim Điện Ảnh Mới Cooóng"}
                 </h2>
                 {href && (
-                    <a
+                    <Link
                         href={href}
                         className="text-sm text-blue-400 hover:underline"
                     >
                         Xem tất cả
-                    </a>
+                    </Link>
                 )}
             </div>
 

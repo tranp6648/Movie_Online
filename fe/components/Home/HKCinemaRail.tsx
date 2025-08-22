@@ -2,7 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Link } from "lucide-react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
@@ -76,13 +76,13 @@ const HKCinemaRail: React.FC<HKCinemaRailProps> = ({
       <div className="mb-4 flex items-center justify-between gap-4">
         <h2 className="text-xl md:text-2xl font-bold text-white">{title}</h2>
         {href ? (
-          <a
+          <Link
             href={href}
             className="inline-flex items-center justify-center h-8 w-8 rounded-full border border-white/10 text-white/80 hover:text-white hover:border-white/20"
             aria-label="Xem tất cả"
           >
             <ChevronRight className="h-4 w-4" />
-          </a>
+          </Link>
         ) : null}
       </div>
 
