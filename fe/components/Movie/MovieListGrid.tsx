@@ -103,7 +103,7 @@ export default function MovieListGrid({
         >
           {items.map((m) => (
             <li key={m.id} className="group">
-              <Link href={m.href ?? `/detail/${m.id}`} className="block">
+              <Link href={ `/detail/${m.id}`} className="block">
                 <div className="relative aspect-[2/3] w-full overflow-hidden rounded-lg sm:rounded-xl bg-white/5 ring-1 ring-white/10 shadow-[0_6px_18px_-10px_rgba(0,0,0,0.45)] group-hover:shadow-[0_14px_30px_-12px_rgba(0,0,0,0.55)] transition-shadow">
                   <Image
                     src={m.poster}
