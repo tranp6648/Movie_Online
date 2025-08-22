@@ -4,11 +4,12 @@ import { SERIES_DATA } from "@/data/SeriesData";
 export const metadata = {
   title: "Phim bộ | RoPhim",
 };
-type SeriesPageProps = {
-  searchParams?: { [key: string]: string | string[] | undefined };
-};
 
-export default function SeriesPage({ searchParams }: SeriesPageProps) {
+export default function SeriesPage({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   const pageParam = searchParams?.page;
   const page =
     Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1;
