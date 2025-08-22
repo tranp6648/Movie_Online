@@ -32,8 +32,10 @@ const CATEGORY_MAP: Record<string, { title: string; items: AnimeItem[] }> = {
 // ✅ phải là async function
 export default async function CategoryPage({
   params,
+  searchParams,
 }: {
   params: { slug: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 }) {
   const category =
     CATEGORY_MAP[params.slug] ?? { title: "Không tìm thấy", items: [] };
@@ -44,8 +46,6 @@ export default async function CategoryPage({
       items={category.items}
       page={1}
       pageCount={5}
-      // ❌ không truyền function từ server sang client
-      // ✅ chỉ truyền string baseHref
       baseHref={`/Type/${params.slug}`}
       className="pt-20"
     />
