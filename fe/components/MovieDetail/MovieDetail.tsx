@@ -31,6 +31,8 @@ export type MovieDetailProps = {
   comments: Comment[];
 };
 
+type Tab = "episodes" | "gallery" | "cast" | "suggested";
+
 export default function MovieDetail({
   poster,
   title,
@@ -47,9 +49,14 @@ export default function MovieDetail({
   director,
   comments,
 }: MovieDetailProps) {
-  const [tab, setTab] = useState<"episodes" | "gallery" | "cast" | "suggested">(
-    "episodes"
-  );
+  const [tab, setTab] = useState<Tab>("episodes");
+
+  const tabs: { key: Tab; label: string }[] = [
+    { key: "episodes", label: "Tập phim" },
+    { key: "gallery", label: "Gallery" },
+    { key: "cast", label: "Diễn viên" },
+    { key: "suggested", label: "Đề xuất" },
+  ];
 
   return (
     <section className="w-full text-white">
@@ -93,12 +100,16 @@ export default function MovieDetail({
             </div>
 
             <div className="mt-6 flex gap-3">
-              <button className="px-5 py-2 rounded-lg bg-yellow-400 text-black font-semibold flex items-center gap-2 hover:bg-yellow-300 transition">
+              <button
+                type="button"
+                className="px-5 py-2 rounded-lg bg-yellow-400 text-black font-semibold flex items-center gap-2 hover:bg-yellow-300 transition"
+              >
                 <Play className="h-5 w-5" /> Xem ngay
               </button>
               {[Heart, Plus, Share2, MessageSquare].map((Icon, i) => (
                 <button
                   key={i}
+                  type="button"
                   className="p-2 rounded-full bg-white/10 hover:bg-white/20 transition"
                 >
                   <Icon className="h-5 w-5" />
@@ -112,15 +123,11 @@ export default function MovieDetail({
       {/* Tabs */}
       <div className="max-w-7xl mx-auto px-4 mt-8">
         <div className="flex gap-4 border-b border-white/10">
-          {[
-            { key: "episodes", label: "Tập phim" },
-            { key: "gallery", label: "Gallery" },
-            { key: "cast", label: "Diễn viên" },
-            { key: "suggested", label: "Đề xuất" },
-          ].map((t) => (
+          {tabs.map((t) => (
             <button
               key={t.key}
-              onClick={() => setTab(t.key as any)}
+              type="button"
+              onClick={() => setTab(t.key)}
               className={`px-4 py-2 -mb-px border-b-2 text-sm transition ${
                 tab === t.key
                   ? "border-yellow-400 text-yellow-400"
@@ -146,7 +153,9 @@ export default function MovieDetail({
               ))}
             </div>
           )}
-          {tab === "gallery" && <div className="text-white/60">Gallery đang cập nhật...</div>}
+          {tab === "gallery" && (
+            <div className="text-white/60">Gallery đang cập nhật...</div>
+          )}
           {tab === "cast" && (
             <div className="flex gap-4 flex-wrap">
               {actors.map((a) => (
@@ -165,7 +174,9 @@ export default function MovieDetail({
               ))}
             </div>
           )}
-          {tab === "suggested" && <div className="text-white/60">Danh sách phim gợi ý...</div>}
+          {tab === "suggested" && (
+            <div className="text-white/60">Danh sách phim gợi ý...</div>
+          )}
         </div>
       </div>
 
@@ -176,17 +187,29 @@ export default function MovieDetail({
           <p className="text-white/70 leading-relaxed">{description}</p>
         </div>
         <div className="space-y-2 text-white/80">
-          <p><span className="font-medium text-white">Thời lượng:</span> {duration}</p>
-          <p><span className="font-medium text-white">Quốc gia:</span> {country}</p>
-          <p><span className="font-medium text-white">Networks:</span> {network}</p>
-          <p><span className="font-medium text-white">Sản xuất:</span> {producer}</p>
-          <p><span className="font-medium text-white">Đạo diễn:</span> {director}</p>
+          <p>
+            <span className="font-medium text-white">Thời lượng:</span> {duration}
+          </p>
+          <p>
+            <span className="font-medium text-white">Quốc gia:</span> {country}
+          </p>
+          <p>
+            <span className="font-medium text-white">Networks:</span> {network}
+          </p>
+          <p>
+            <span className="font-medium text-white">Sản xuất:</span> {producer}
+          </p>
+          <p>
+            <span className="font-medium text-white">Đạo diễn:</span> {director}
+          </p>
         </div>
       </div>
 
       {/* Comments */}
       <div className="max-w-7xl mx-auto px-4 mt-10">
-        <h3 className="font-semibold text-lg mb-4">Bình luận ({comments.length})</h3>
+        <h3 className="font-semibold text-lg mb-4">
+          Bình luận ({comments.length})
+        </h3>
 
         {/* Form nhập */}
         <div className="mb-6">
@@ -195,7 +218,10 @@ export default function MovieDetail({
             className="w-full p-3 rounded-lg bg-white/5 text-sm text-white placeholder:text-white/40 resize-none focus:outline-none focus:ring-1 focus:ring-yellow-400"
             rows={3}
           />
-          <button className="mt-2 px-4 py-2 bg-yellow-400 text-black rounded-lg font-semibold hover:bg-yellow-300 transition">
+          <button
+            type="button"
+            className="mt-2 px-4 py-2 bg-yellow-400 text-black rounded-lg font-semibold hover:bg-yellow-300 transition"
+          >
             Gửi
           </button>
         </div>
@@ -212,7 +238,10 @@ export default function MovieDetail({
                 className="rounded-3xl object-cover"
               />
               <div>
-                <p className="font-medium">{c.user} <span className="text-white/50 text-xs">· {c.time}</span></p>
+                <p className="font-medium">
+                  {c.user}{" "}
+                  <span className="text-white/50 text-xs">· {c.time}</span>
+                </p>
                 <p className="text-white/80 text-sm">{c.content}</p>
               </div>
             </div>
