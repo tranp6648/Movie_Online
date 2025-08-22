@@ -92,7 +92,7 @@ export default function Header() {
                 )}
               </li>
               <li><Link href="/Movie" className="hover:text-yellow-400 transition-colors">Phim Lẻ</Link></li>
-              <li><Link href="/Series" className="hover:text-yellow-400 transition-colors">Phim Bộ</Link></li>
+              <li><Link href="/series" className="hover:text-yellow-400 transition-colors">Phim Bộ</Link></li>
               <li><Link href="/general-view" className="hover:text-yellow-400 transition-colors">Xem Chung</Link></li>
 
               <li className="relative">
