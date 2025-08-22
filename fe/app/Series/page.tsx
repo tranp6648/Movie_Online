@@ -6,8 +6,13 @@ export const metadata = {
   title: "Phim bộ | RoPhim",
 };
 
-export default function SeriesPage(props: any) {
-  const pageParam = props.searchParams?.page;
+type PageProps = {
+  params?: Record<string, string>;
+  searchParams?: Record<string, string | string[] | undefined>;
+};
+
+export default function SeriesPage({ searchParams }: PageProps) {
+  const pageParam = searchParams?.page;
   const page =
     Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1;
 
