@@ -1,20 +1,19 @@
 // fe/app/phim-bo/page.tsx
 import SeriesGrid from "@/components/SeriesGrid";
 import { SERIES_DATA } from "@/data/SeriesData";
-import type { Show } from "@/lib/types";
 
 export const metadata = {
   title: "Phim bộ | RoPhim",
 };
 
-type PageProps = {
-  params?: { [key: string]: string };
+export default function SeriesPage({
+  searchParams,
+}: {
   searchParams?: { [key: string]: string | string[] | undefined };
-};
-
-
-export default function SeriesPage({ searchParams }: PageProps) {
-  const page = Number(searchParams?.page) || 1;
+}) {
+  const pageParam = searchParams?.page;
+  const page =
+    Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1;
 
   return (
     <main className="mx-auto max-w-[1400px] px-4 pb-16 pt-18">
