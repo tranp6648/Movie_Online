@@ -1,4 +1,3 @@
-// app/Type/[slug]/page.tsx
 import AnimeGrid, { AnimeItem } from "@/components/Type/AnimeGrid";
 
 const CATEGORY_MAP: Record<string, { title: string; items: AnimeItem[] }> = {
@@ -28,15 +27,14 @@ const CATEGORY_MAP: Record<string, { title: string; items: AnimeItem[] }> = {
   },
 };
 
-// ❌ function sync → sẽ lỗi
-// ✅ phải là async function
-export default async function CategoryPage({
-  params,
-  searchParams,
-}: {
+type CategoryPageProps = {
   params: { slug: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
-}) {
+  searchParams?: Record<string, string | string[] | undefined>;
+};
+
+export default async function CategoryPage(rawProps: unknown) {
+  const { params } = rawProps as CategoryPageProps;
+
   const category =
     CATEGORY_MAP[params.slug] ?? { title: "Không tìm thấy", items: [] };
 
