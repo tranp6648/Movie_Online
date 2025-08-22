@@ -66,7 +66,7 @@ export default function Header() {
                   <ul className="absolute left-0 mt-2 w-48 bg-zinc-900 rounded-lg shadow-lg ring-1 ring-white/10 overflow-hidden z-50">
                     <li>
                       <Link
-                        href="/Type/co-trang"
+                        href="/type/co-trang"
                         className="block px-4 py-2 hover:bg-zinc-800 transition"
                       >
                         Phim Cổ Trang
@@ -74,7 +74,7 @@ export default function Header() {
                     </li>
                     <li>
                       <Link
-                        href="/Type/tinh-cam"
+                        href="/type/tinh-cam"
                         className="block px-4 py-2 hover:bg-zinc-800 transition"
                       >
                         Phim Tình Cảm
@@ -82,7 +82,7 @@ export default function Header() {
                     </li>
                     <li>
                       <Link
-                        href="/Type/hanh-dong"
+                        href="/type/hanh-dong"
                         className="block px-4 py-2 hover:bg-zinc-800 transition"
                       >
                         Phim Hành Động
