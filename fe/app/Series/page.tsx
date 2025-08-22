@@ -8,8 +8,9 @@ export const metadata = {
 };
 
 type Props = {
-  searchParams?: { page?: string };
+  searchParams?: { [key: string]: string | string[] | undefined };
 };
+
 
 export default function SeriesPage({ searchParams }: Props) {
   const page = Number(searchParams?.page) || 1;
