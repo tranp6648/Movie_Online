@@ -1,5 +1,5 @@
-import { ChevronRight, Link } from "lucide-react";
-
+import { ChevronRight } from "lucide-react";
+import Link from "next/link";
 export type Topic = {
     id: string | number;
     title: string;

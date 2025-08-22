@@ -35,8 +35,9 @@ type Props =
 
 // Type-guard an toàn
 function hasGroups(p: Props): p is { groups: Group[]; initialIndex?: number } {
-  return (p as any).groups !== undefined
+  return "groups" in p && Array.isArray(p.groups)
 }
+
 
 export default function CountryRail(props: Props) {
   const isTabbed = hasGroups(props)
