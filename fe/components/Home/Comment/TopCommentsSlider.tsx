@@ -30,12 +30,15 @@ interface Props {
 }
 
 // --- helper: đọc perView an toàn từ options.slides ---
-function resolvePerView(slides: unknown, fallback: number): number {
-  if (typeof slides === "number") return slides; // Keen cho phép slides = number (perView)
-  if (slides && typeof slides === "object" && "perView" in (slides as any)) {
-    const pv = (slides as { perView?: number }).perView;
-    if (typeof pv === "number") return pv;
-  }
+type SlidesOpt = number | { perView?: number | unknown } | unknown;
+
+function hasPerView(x: unknown): x is { perView?: number } {
+  return typeof x === "object" && x !== null && "perView" in x;
+}
+
+function resolvePerView(slides: SlidesOpt, fallback: number): number {
+  if (typeof slides === "number") return slides; // Keen cho phép number = perView
+  if (hasPerView(slides) && typeof slides.perView === "number") return slides.perView;
   return fallback;
 }
 

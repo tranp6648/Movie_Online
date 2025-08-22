@@ -2,8 +2,8 @@
 
 import { useState, useMemo, useEffect, useRef } from "react";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, CalendarDays, Link } from "lucide-react";
-
+import { ChevronLeft, ChevronRight, CalendarDays} from "lucide-react";
+import Link from "next/link";
 export type Day = {
   date: string;
   label: string;
