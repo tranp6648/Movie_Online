@@ -6,12 +6,11 @@ export const metadata = {
   title: "Phim bộ | RoPhim",
 };
 
-type PageProps = {
-  params?: Record<string, string>;
-  searchParams?: Record<string, string | string[] | undefined>;
-};
-
-export default function SeriesPage({ searchParams }: PageProps) {
+export default function SeriesPage({
+  searchParams,
+}: {
+  searchParams?: { [key: string]: string | string[] | undefined };
+}) {
   const pageParam = searchParams?.page;
   const page =
     Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1;
@@ -30,7 +29,7 @@ export default function SeriesPage({ searchParams }: PageProps) {
         items={SERIES_DATA}
         page={page}
         perPage={32}
-        basePath="/Series"
+        basePath="/phim-bo"
       />
     </main>
   );
