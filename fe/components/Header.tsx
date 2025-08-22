@@ -42,9 +42,9 @@ export default function Header() {
           >
             {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
-          <a href="/">
+          <Link href="/">
             <img src="/logo.svg" alt="RoPhim" className="h-8 sm:h-9 md:h-10 w-auto" />
-          </a>
+          </Link>
         </div>
 
         {/* CENTER: NAV + SEARCH CÙNG HÀNG (desktop) */}
@@ -65,35 +65,35 @@ export default function Header() {
                 {openType && (
                   <ul className="absolute left-0 mt-2 w-48 bg-zinc-900 rounded-lg shadow-lg ring-1 ring-white/10 overflow-hidden z-50">
                     <li>
-                      <a
+                      <Link
                         href="/Type/co-trang"
                         className="block px-4 py-2 hover:bg-zinc-800 transition"
                       >
                         Phim Cổ Trang
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         href="/Type/tinh-cam"
                         className="block px-4 py-2 hover:bg-zinc-800 transition"
                       >
                         Phim Tình Cảm
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         href="/Type/hanh-dong"
                         className="block px-4 py-2 hover:bg-zinc-800 transition"
                       >
                         Phim Hành Động
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 )}
               </li>
               <li><Link href="/Movie" className="hover:text-yellow-400 transition-colors">Phim Lẻ</Link></li>
-              <li><a href="/Series" className="hover:text-yellow-400 transition-colors">Phim Bộ</a></li>
-              <li><a href="/general-view" className="hover:text-yellow-400 transition-colors">Xem Chung</a></li>
+              <li><Link href="/Series" className="hover:text-yellow-400 transition-colors">Phim Bộ</Link></li>
+              <li><Link href="/general-view" className="hover:text-yellow-400 transition-colors">Xem Chung</Link></li>
 
               <li className="relative">
                 <button
@@ -106,23 +106,23 @@ export default function Header() {
                 {openCountry && (
                   <div className="absolute left-0 mt-2 w-40 rounded-md bg-[#0F111A] border border-white/10 shadow-lg z-50">
                     <ul className="py-2 text-sm text-white">
-                      <li><a href="/country/uk" className="block px-4 py-2 hover:bg-white/10">Anh</a></li>
-                      <li><a href="/country/us" className="block px-4 py-2 hover:bg-white/10">Mỹ</a></li>
-                      <li><a href="/country/kr" className="block px-4 py-2 hover:bg-white/10">Hàn Quốc</a></li>
-                      <li><a href="/country/jp" className="block px-4 py-2 hover:bg-white/10">Nhật Bản</a></li>
-                      <li><a href="/country/cn" className="block px-4 py-2 hover:bg-white/10">Trung Quốc</a></li>
+                      <li><Link href="/country/uk" className="block px-4 py-2 hover:bg-white/10">Anh</Link></li>
+                      <li><Link href="/country/us" className="block px-4 py-2 hover:bg-white/10">Mỹ</Link></li>
+                      <li><Link href="/country/kr" className="block px-4 py-2 hover:bg-white/10">Hàn Quốc</Link></li>
+                      <li><Link href="/country/jp" className="block px-4 py-2 hover:bg-white/10">Nhật Bản</Link></li>
+                      <li><Link href="/country/cn" className="block px-4 py-2 hover:bg-white/10">Trung Quốc</Link></li>
                     </ul>
                   </div>
                 )}
               </li>
 
-              <li><a href="/actor" className="hover:text-yellow-400 transition-colors">Diễn Viên</a></li>
+              <li><Link href="/actor" className="hover:text-yellow-400 transition-colors">Diễn Viên</Link></li>
               <li><Link href="/Schedule" className="hover:text-yellow-400 transition-colors">Lịch chiếu</Link></li>
               <li>
-                <a href="#" className="hover:text-yellow-400 transition-colors inline-flex items-center">
+                <Link href="#" className="hover:text-yellow-400 transition-colors inline-flex items-center">
                   Rô Bóng
                   <span className="ml-1 text-[10px] font-bold bg-yellow-400 text-black px-1.5 py-0.5 rounded-md shadow">NEW</span>
-                </a>
+                </Link>
               </li>
             </ul>
           </nav>
@@ -191,9 +191,9 @@ export default function Header() {
           className={`absolute left-0 top-0 h-full w-72 max-w-[85%] bg-[#0F111A] border-r border-white/10 p-4 transform transition-transform ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}
         >
           <div className="flex items-center justify-between">
-            <a href="/">
+            <Link href="/">
               <img src="/logo.svg" alt="RoPhim" className="h-8 w-auto" />
-            </a>
+            </Link>
             <button
               aria-label="Đóng menu"
               className="rounded-md p-2 text-white/80 hover:text-white hover:bg-white/10"
@@ -205,25 +205,25 @@ export default function Header() {
 
           <nav className="mt-4 text-sm space-y-1 text-gray-200">
             {["Chủ Đề", "Thể loại", "Phim Lẻ", "Phim Bộ", "Xem Chung", "Quốc gia", "Diễn Viên", "Lịch chiếu"].map((item) => (
-              <a key={item} href="#" className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400" onClick={() => setMenuOpen(false)}>
+              <Link key={item} href="#" className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400" onClick={() => setMenuOpen(false)}>
                 {item}
-              </a>
+              </Link>
             ))}
-            <a href="#" className="flex items-center px-3 py-2 rounded-md hover:bg-white/10">
+            <Link href="#" className="flex items-center px-3 py-2 rounded-md hover:bg-white/10">
               Rô Bóng
               <span className="ml-2 text-[10px] font-bold bg-yellow-400 text-black px-1.5 py-0.5 rounded-md shadow">NEW</span>
-            </a>
+            </Link>
           </nav>
 
           <div className="mt-4 border-t border-white/10 pt-4 grid grid-cols-2 gap-2">
-            <a href="#" className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white hover:bg-white/10">
+            <Link href="#" className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/15 bg-white/5 px-3 py-2 text-white hover:bg-white/10">
               <Download className="h-4 w-4" />
               <span className="text-sm">Tải RoPhim</span>
-            </a>
-            <a href="#" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white text-black px-3 py-2 border border-black/10">
+            </Link>
+            <Link href="#" className="inline-flex items-center justify-center gap-2 rounded-lg bg-white text-black px-3 py-2 border border-black/10">
               <User className="h-4 w-4" />
               <span className="text-sm">Thành viên</span>
-            </a>
+            </Link>
           </div>
         </aside>
       </div>

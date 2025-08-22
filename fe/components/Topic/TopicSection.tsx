@@ -1,4 +1,4 @@
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Link } from "lucide-react";
 
 export type Topic = {
     id: string | number;
@@ -70,7 +70,7 @@ const TopicSection = ({
                         const p = PALETTES[t.color ?? "blue"];
                         return(
                             <li key={t.id}>
-                                <a
+                                <Link
                                 href={t.href ?? "#"}
                                 className={`relative block rounded-2xl p-5 sm:p-6 h-[130px] sm:h-[150px] 
                                     overflow-hidden shadow-[0_8px_24px_-12px_rgba(0,0,0,0.5)] 
@@ -85,7 +85,7 @@ const TopicSection = ({
                                         </span>
                                     </div>
                                     <span className="pointer-events-none absolute inset-0 rounded-2xl bg-white/0 hover:bg-white/5 transition-colors"/>
-                                </a>
+                                </Link>
                             </li>
                         )
                     })}
