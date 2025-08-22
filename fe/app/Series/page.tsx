@@ -1,4 +1,3 @@
-// fe/app/phim-bo/page.tsx
 import SeriesGrid from "@/components/SeriesGrid";
 import { SERIES_DATA } from "@/data/SeriesData";
 
@@ -6,11 +5,11 @@ export const metadata = {
   title: "Phim bộ | RoPhim",
 };
 
-export default function SeriesPage({
-  searchParams,
-}: {
+interface PageProps {
   searchParams?: { [key: string]: string | string[] | undefined };
-}) {
+}
+
+export default function SeriesPage({ searchParams }: PageProps) {
   const pageParam = searchParams?.page;
   const page =
     Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1;
