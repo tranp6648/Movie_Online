@@ -5,11 +5,11 @@ export const metadata = {
   title: "Phim bộ | RoPhim",
 };
 
-interface PageProps {
+export default function SeriesPage({
+  searchParams,
+}: {
   searchParams?: { [key: string]: string | string[] | undefined };
-}
-
-export default function SeriesPage({ searchParams }: PageProps) {
+}) {
   const pageParam = searchParams?.page;
   const page =
     Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1;
