@@ -8,12 +8,28 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+useEffect(() => {
+  const mq = window.matchMedia("(min-width: 1770px)"); // lg breakpoint
+
+  const onScroll = () => {
+    if (mq.matches) {
+      setScrolled(window.scrollY > 10);
+    } else {
+      setScrolled(false); // mobile/tablet thì reset trạng thái
+    }
+  };
+
+  // init
+  onScroll();
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll); // nếu resize từ mobile → desktop
+
+  return () => {
+    window.removeEventListener("scroll", onScroll);
+    window.removeEventListener("resize", onScroll);
+  };
+}, []);
 
   return (
     <header
@@ -28,7 +44,7 @@ export default function Header() {
           {/* Mobile menu button */}
           <button
             onClick={() => setMenuOpen((v) => !v)}
-            className="hidden max-[1787px]:inline-flex p-2 rounded-md text-white/80 hover:text-white hover:bg-white/10"
+            className="hidden max-[1770px]:inline-flex p-2 rounded-md text-white/80 hover:text-white hover:bg-white/10"
           >
             {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
@@ -59,7 +75,7 @@ export default function Header() {
         </div>
 
         {/* CENTER: Menu items desktop */}
-        <nav className="hidden min-[1796px]:flex ml-12 justify-start flex-6">
+        <nav className="hidden min-[1770px]:flex ml-12 justify-start flex-6">
           <ul className="flex items-center justify-between gap-6 text-sm font-medium text-gray-200">
             <li><Link href="/topic" className="hover:text-yellow-400 mr-5">Chủ Đề</Link></li>
             <li><Link href="/type" className="hover:text-yellow-400 mr-5">Thể loại</Link></li>
@@ -83,13 +99,13 @@ export default function Header() {
           {/* Mobile search trigger */}
           <button
             onClick={() => setMobileSearchOpen((v) => !v)}
-            className="hidden max-[1796px]:inline-flex items-center justify-center rounded-full p-2 border border-white/20 bg-white/10 text-white/90 hover:bg-white/20"
+            className="hidden max-[1770px]:inline-flex items-center justify-center rounded-full p-2 border border-white/20 bg-white/10 text-white/90 hover:bg-white/20"
           >
             <Search className="h-5 w-5" />
           </button>
 
           {/* Download App */}
-          <button className="hidden min-[1796px]:flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-md text-white text-xs sm:text-sm">
+          <button className="hidden min-[1770px]:flex items-center gap-2 px-2.5 sm:px-3 py-1 rounded-md text-white text-xs sm:text-sm">
             <Download className="h-4 w-4 sm:h-5 sm:w-5" />
             <div className="hidden sm:flex flex-col leading-tight text-left">
               <span className="text-[11px] text-gray-300">Tải ứng dụng</span>
@@ -98,7 +114,7 @@ export default function Header() {
           </button>
 
           {/* Member */}
-          <button className="hidden min-[1796px]:flex items-center gap-1 bg-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-black shadow-sm border border-black/10">
+          <button className="hidden min-[1770px]:flex items-center gap-1 bg-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-black shadow-sm border border-black/10">
             <User className="h-4 w-4" />
             <span className="text-xs sm:text-sm font-medium">Thành viên</span>
           </button>
@@ -124,7 +140,7 @@ export default function Header() {
 
       {/* MOBILE MENU DRAWER */}
       <div
-        className={`lg:hidden fixed inset-0 z-40 transition ${menuOpen ? "pointer-events-auto" : "pointer-events-none"
+        className={`hidden max-[1770px]:flex fixed inset-0 z-40 transition ${menuOpen ? "pointer-events-auto" : "pointer-events-none"
           }`}
       >
         <div
