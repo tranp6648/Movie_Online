@@ -14,7 +14,16 @@ export default function Header() {
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
-
+const navItems = [
+  { label: "Chủ Đề", href: "/Topic" },
+  { label: "Thể loại", href: "/type/tinh-cam" },
+  { label: "Phim Lẻ", href: "/Movie" },
+  { label: "Phim Bộ", href: "/series" },
+  { label: "Xem Chung", href: "/general-view" },
+  { label: "Quốc gia", href: "/country/cn" },
+  { label: "Diễn Viên", href: "/actor" },
+  { label: "Lịch chiếu", href: "/Schedule" },
+];
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
@@ -62,22 +71,16 @@ export default function Header() {
         {/* CENTER: Desktop menu items */}
         <nav className="hidden min-[1770px]:flex ml-12 justify-start flex-6">
           <ul className="flex items-center gap-6 text-sm font-medium text-gray-200">
-            {[
-              "Chủ Đề",
-              "Thể loại",
-              "Phim Lẻ",
-              "Phim Bộ",
-              "Xem Chung",
-              "Quốc gia",
-              "Diễn Viên",
-              "Lịch chiếu",
-            ].map((item, idx) => (
-              <li key={idx}>
-                <Link href="#" className="hover:text-yellow-400 mr-5">
-                  {item}
-                </Link>
-              </li>
-            ))}
+            {navItems.map((item, idx) => (
+    <li key={idx}>
+      <Link
+        href={item.href}
+        className="hover:text-yellow-400 mr-5"
+      >
+        {item.label}
+      </Link>
+    </li>
+  ))}
             <li>
               <Link
                 href="#"
@@ -168,23 +171,14 @@ export default function Header() {
           </div>
 
           <nav className="mt-4 text-sm space-y-1 text-gray-200">
-            {[
-              "Chủ Đề",
-              "Thể loại",
-              "Phim Lẻ",
-              "Phim Bộ",
-              "Xem Chung",
-              "Quốc gia",
-              "Diễn Viên",
-              "Lịch chiếu",
-            ].map((item, idx) => (
+            {navItems.map((item, idx) => (
               <Link
                 key={idx}
-                href="#"
+                href={item.href}
                 className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
                 onClick={() => setMenuOpen(false)}
               >
-                {item}
+                {item.label}
               </Link>
             ))}
             <Link
