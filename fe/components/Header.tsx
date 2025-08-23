@@ -8,35 +8,20 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [mobileSearchOpen, setMobileSearchOpen] = useState(false);
 
-useEffect(() => {
-  const mq = window.matchMedia("(min-width: 1770px)"); // lg breakpoint
-
-  const onScroll = () => {
-    if (mq.matches) {
-      setScrolled(window.scrollY > 10);
-    } else {
-      setScrolled(false); // mobile/tablet thì reset trạng thái
-    }
-  };
-
-  // init
-  onScroll();
-
-  window.addEventListener("scroll", onScroll, { passive: true });
-  window.addEventListener("resize", onScroll); // nếu resize từ mobile → desktop
-
-  return () => {
-    window.removeEventListener("scroll", onScroll);
-    window.removeEventListener("resize", onScroll);
-  };
-}, []);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <header
-      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${scrolled
-        ? "bg-[#0F111A]/95 backdrop-blur border-b border-white/10"
-        : "bg-transparent"
-        }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${
+        scrolled
+          ? "bg-[#0F111A]/95  border-b border-white/10"
+          : "bg-transparent"
+      }`}
     >
       <div className="mx-auto flex items-center justify-between px-4 lg:px-8 py-2 sm:py-3">
         {/* LEFT: Logo + Search */}
@@ -51,44 +36,57 @@ useEffect(() => {
 
           {/* Logo */}
           <Link href="/">
-            <img src="/logo.svg" alt="RoPhim" className="h-8 sm:h-9 md:h-10 w-auto" />
+            <img
+              src="/logo.svg"
+              alt="RoPhim"
+              className="h-8 sm:h-9 md:h-10 w-auto"
+            />
           </Link>
 
+          {/* Desktop search */}
           <div className="relative hidden lg:block w-full max-w-[300px] lg:max-w-[360px]">
-            {/* Icon search */}
             <Search
               size={18}
               className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-300 pointer-events-none"
             />
-
-            {/* Input */}
             <input
               type="search"
               placeholder="Tìm kiếm phim, diễn viên"
               className="w-full h-11 pl-10 pr-3 text-sm text-white placeholder-gray-400 
                bg-[rgba(255,255,255,0.08)] rounded-md border border-transparent
-               outline-none  focus:ring-2 focus:ring-yellow-400 transition"
+               outline-none focus:ring-2 focus:ring-yellow-400 transition"
             />
           </div>
-
-
         </div>
 
-        {/* CENTER: Menu items desktop */}
+        {/* CENTER: Desktop menu items */}
         <nav className="hidden min-[1770px]:flex ml-12 justify-start flex-6">
-          <ul className="flex items-center justify-between gap-6 text-sm font-medium text-gray-200">
-            <li><Link href="/topic" className="hover:text-yellow-400 mr-5">Chủ Đề</Link></li>
-            <li><Link href="/type" className="hover:text-yellow-400 mr-5">Thể loại</Link></li>
-            <li><Link href="/movie" className="hover:text-yellow-400 mr-5">Phim Lẻ</Link></li>
-            <li><Link href="/series" className="hover:text-yellow-400 mr-5">Phim Bộ</Link></li>
-            <li><Link href="/general-view" className="hover:text-yellow-400 mr-5">Xem Chung</Link></li>
-            <li><Link href="/country" className="hover:text-yellow-400 mr-5">Quốc gia</Link></li>
-            <li><Link href="/actor" className="hover:text-yellow-400 mr-5">Diễn Viên</Link></li>
-            <li><Link href="/schedule" className="hover:text-yellow-400 mr-5">Lịch chiếu</Link></li>
+          <ul className="flex items-center gap-6 text-sm font-medium text-gray-200">
+            {[
+              "Chủ Đề",
+              "Thể loại",
+              "Phim Lẻ",
+              "Phim Bộ",
+              "Xem Chung",
+              "Quốc gia",
+              "Diễn Viên",
+              "Lịch chiếu",
+            ].map((item, idx) => (
+              <li key={idx}>
+                <Link href="#" className="hover:text-yellow-400 mr-5">
+                  {item}
+                </Link>
+              </li>
+            ))}
             <li>
-              <Link href="#" className="inline-flex items-center hover:text-yellow-400">
+              <Link
+                href="#"
+                className="inline-flex items-center hover:text-yellow-400"
+              >
                 Rô Bóng
-                <span className="ml-1 text-[10px] font-bold bg-yellow-400 text-black px-1.5 py-0.5 rounded-md">NEW</span>
+                <span className="ml-1 text-[10px] font-bold bg-yellow-400 text-black px-1.5 py-0.5 rounded-md">
+                  NEW
+                </span>
               </Link>
             </li>
           </ul>
@@ -140,17 +138,22 @@ useEffect(() => {
 
       {/* MOBILE MENU DRAWER */}
       <div
-        className={`hidden max-[1770px]:flex fixed inset-0 z-40 transition ${menuOpen ? "pointer-events-auto" : "pointer-events-none"
-          }`}
+        className={`hidden max-[1770px]:flex fixed inset-0 z-40 transition ${
+          menuOpen ? "pointer-events-auto" : "pointer-events-none"
+        }`}
       >
+        {/* Overlay */}
         <div
-          className={`absolute inset-0 bg-black/50 transition-opacity ${menuOpen ? "opacity-100" : "opacity-0"
-            }`}
+          className={`absolute inset-0 bg-black/50 transition-opacity ${
+            menuOpen ? "opacity-100" : "opacity-0"
+          }`}
           onClick={() => setMenuOpen(false)}
         />
+        {/* Drawer */}
         <aside
-          className={`absolute left-0 top-0 h-full w-72 max-w-[85%] bg-[#0F111A] border-r border-white/10 p-4 transform transition-transform ${menuOpen ? "translate-x-0" : "-translate-x-full"
-            }`}
+          className={`absolute left-0 top-0 h-full w-72 max-w-[85%] bg-[#0F111A] border-r border-white/10 p-4 transform transition-transform ${
+            menuOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
         >
           <div className="flex items-center justify-between">
             <Link href="/">
@@ -165,19 +168,29 @@ useEffect(() => {
           </div>
 
           <nav className="mt-4 text-sm space-y-1 text-gray-200">
-            {["Chủ Đề", "Thể loại", "Phim Lẻ", "Phim Bộ", "Xem Chung", "Quốc gia", "Diễn Viên", "Lịch chiếu"].map(
-              (item) => (
-                <Link
-                  key={item}
-                  href="#"
-                  className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
-                  onClick={() => setMenuOpen(false)}
-                >
-                  {item}
-                </Link>
-              )
-            )}
-            <Link href="#" className="flex items-center px-3 py-2 rounded-md hover:bg-white/10">
+            {[
+              "Chủ Đề",
+              "Thể loại",
+              "Phim Lẻ",
+              "Phim Bộ",
+              "Xem Chung",
+              "Quốc gia",
+              "Diễn Viên",
+              "Lịch chiếu",
+            ].map((item, idx) => (
+              <Link
+                key={idx}
+                href="#"
+                className="block rounded-md px-3 py-2 hover:bg-white/10 hover:text-yellow-400"
+                onClick={() => setMenuOpen(false)}
+              >
+                {item}
+              </Link>
+            ))}
+            <Link
+              href="#"
+              className="flex items-center px-3 py-2 rounded-md hover:bg-white/10"
+            >
               Rô Bóng
               <span className="ml-2 text-[10px] font-bold bg-yellow-400 text-black px-1.5 py-0.5 rounded-md">
                 NEW
