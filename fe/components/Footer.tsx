@@ -3,104 +3,123 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import {
-  Send,
-  Gamepad2,
-  X,
-  Facebook,
-  Music2,
-  Youtube,
-  Instagram,
-  Github,
+  Send, Gamepad2, X, Facebook, Music2,
+  Youtube, Instagram, Github, ArrowUp
 } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 const SOCIALS = [
   { href: '#', Icon: Send, label: 'Telegram' },
   { href: '#', Icon: Gamepad2, label: 'Game' },
-  { href: '#', Icon: X, label: 'X/Twitter' },
+  { href: '#', Icon: X, label: 'Twitter / X' },
   { href: '#', Icon: Facebook, label: 'Facebook' },
-  { href: '#', Icon: Music2, label: 'TikTok/Music' },
+  { href: '#', Icon: Music2, label: 'TikTok' },
   { href: '#', Icon: Youtube, label: 'YouTube' },
   { href: '#', Icon: Instagram, label: 'Instagram' },
   { href: '#', Icon: Github, label: 'Github' },
 ]
 
 export default function Footer() {
-  // Scroll-to-top button
   const [showToTop, setShowToTop] = useState(false)
+
   useEffect(() => {
     const onScroll = () => setShowToTop(window.scrollY > 400)
-    onScroll()
     window.addEventListener('scroll', onScroll)
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
   return (
-    <footer className="mt-16 border-t border-white/10 bg-[#0f1217]">
-      <div className="mx-auto w-full max-w-7xl px-4 py-8 md:px-6 lg:px-8">
+    <footer className="relative mt-20 bg-gradient-to-b from-[#0f1217] via-[#0a0d13] to-black text-white">
+      <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,rgba(255,0,150,0.2),transparent_60%),radial-gradient(circle_at_bottom_left,rgba(0,200,255,0.15),transparent_60%)]" />
 
-        {/* Logo + Social */}
-        <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+      <div className="mx-auto max-w-7xl px-4 py-14 md:px-6 lg:px-8">
+        
+        {/* Logo + Newsletter */}
+        <div className="mb-12 grid gap-8 md:grid-cols-2 md:items-center">
           {/* Logo */}
-          <div className="flex items-center gap-3 justify-center md:justify-start">
-            <Image
-              src="/logo.svg"
-              alt="RoPhim"
-              width={44}
-              height={44}
-              className="h-11 w-11"
-              priority
-            />
-            <div className="leading-tight text-center md:text-left">
-              <div className="text-2xl font-bold text-white">RoPhim</div>
-              <div className="text-sm text-white/70">Phim hay cá rỗ</div>
+          <Link href="/" className="flex items-center gap-3">
+            <Image src="/logo.svg" alt="RoPhim logo" width={50} height={50} className="h-12 w-12" />
+            <div>
+              <h2 className="text-3xl font-extrabold tracking-tight">RoPhim</h2>
+              <p className="text-sm text-white/70">Phim hay cá rỗ</p>
             </div>
-          </div>
+          </Link>
 
-          {/* Social icons */}
-          <div className="flex flex-wrap justify-center gap-3 md:gap-4">
-            {SOCIALS.map(({ href, Icon, label }) => (
-              <Link
-                key={label}
-                href={href}
-                aria-label={label}
-                className="grid h-10 w-10 place-items-center rounded-full bg-white/5 text-white/80 ring-1 ring-white/10 transition hover:bg-white/10 hover:text-white"
-              >
-                <Icon className="h-5 w-5" />
-              </Link>
-            ))}
+          {/* Newsletter */}
+          <div className="text-center md:text-right">
+            <p className="mb-3 text-sm text-white/70">Đăng ký nhận thông báo phim mới 🎬</p>
+            <form className="flex justify-center md:justify-end gap-2">
+              <input
+                type="email"
+                placeholder="Nhập email của bạn"
+                className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white placeholder-white/50 outline-none focus:ring-2 focus:ring-pink-500 w-64"
+              />
+              <button className="rounded-lg bg-gradient-to-r from-pink-500 to-purple-600 px-4 py-2 text-sm font-medium shadow hover:opacity-90 transition">
+                Đăng ký
+              </button>
+            </form>
           </div>
         </div>
 
-        {/* Links row 1 */}
-        <nav className="mb-3 grid grid-cols-2 sm:grid-cols-3 gap-x-6 gap-y-2 text-[15px] md:flex md:flex-wrap md:gap-x-8">
-          <Link href="#" className="text-white hover:text-white/80">Hỏi-Đáp</Link>
-          <Link href="#" className="text-white hover:text-white/80">Chính sách bảo mật</Link>
-          <Link href="#" className="text-white hover:text-white/80">Điều khoản sử dụng</Link>
-          <Link href="#" className="text-white hover:text-white/80">Giới thiệu</Link>
-          <Link href="#" className="text-white hover:text-white/80">Liên hệ</Link>
+        {/* Social */}
+        <nav aria-label="Mạng xã hội" className="mb-12">
+          <ul className="flex flex-wrap justify-center gap-4">
+            {SOCIALS.map(({ href, Icon, label }) => (
+              <li key={label}>
+                <Link
+                  href={href}
+                  aria-label={label}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="grid h-12 w-12 place-items-center rounded-xl bg-white/10 backdrop-blur-md text-white/80 transition hover:scale-110 hover:text-white hover:shadow-[0_0_15px_rgba(255,0,150,0.6)]"
+                >
+                  <Icon className="h-5 w-5" />
+                </Link>
+              </li>
+            ))}
+          </ul>
         </nav>
 
-        {/* Links row 2 */}
-        <nav className="mb-6 grid grid-cols-2 gap-x-6 gap-y-2 text-[15px] sm:flex sm:flex-wrap sm:gap-x-10">
-          <Link href="#" className="text-white/80 hover:text-white">Dongphim</Link>
-          <Link href="#" className="text-white/80 hover:text-white">Ghienphim</Link>
-          <Link href="#" className="text-white/80 hover:text-white">Motphim</Link>
-          <Link href="#" className="text-white/80 hover:text-white">Subnhanh</Link>
-        </nav>
+        {/* Links */}
+        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
+          <nav aria-label="Chính sách">
+            <h3 className="mb-3 font-semibold text-white">Hỗ trợ</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="#">Hỏi-Đáp</Link></li>
+              <li><Link href="#">Chính sách bảo mật</Link></li>
+              <li><Link href="#">Điều khoản sử dụng</Link></li>
+            </ul>
+          </nav>
+          <nav aria-label="Thông tin">
+            <h3 className="mb-3 font-semibold text-white">Thông tin</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="#">Giới thiệu</Link></li>
+              <li><Link href="#">Liên hệ</Link></li>
+              <li><Link href="#">Tuyển dụng</Link></li>
+            </ul>
+          </nav>
+          <nav aria-label="Đối tác">
+            <h3 className="mb-3 font-semibold text-white">Đối tác</h3>
+            <ul className="space-y-2 text-sm">
+              <li><Link href="#">Dongphim</Link></li>
+              <li><Link href="#">Ghienphim</Link></li>
+              <li><Link href="#">Motphim</Link></li>
+              <li><Link href="#">Subnhanh</Link></li>
+            </ul>
+          </nav>
+        </div>
 
         {/* Description */}
-        <p className="max-w-5xl text-[15px] leading-7 text-white/80 text-center md:text-left">
-          RoPhim – Phim hay cá rỗ – Trang xem phim online chất lượng cao miễn
-          phí Vietsub, thuyết minh, lồng tiếng full HD. Kho phim mới khổng lồ,
-          phim chiếu rạp, phim bộ, phim lẻ từ nhiều quốc gia như Việt Nam, Hàn
-          Quốc, Trung Quốc, Thái Lan, Nhật Bản, Âu Mỹ… đa dạng thể loại. Khám
-          phá nền tảng phim trực tuyến hay nhất 2024 chất lượng 4K!
+        <p className="mt-12 max-w-4xl text-center text-sm text-white/70 mx-auto leading-6">
+          <strong>RoPhim</strong> – Nền tảng xem phim online chất lượng cao miễn phí. 
+          Kho phim khổng lồ: phim chiếu rạp, phim bộ, phim lẻ từ nhiều quốc gia 
+          (Việt Nam, Hàn Quốc, Trung Quốc, Nhật Bản, Mỹ, Âu…) với đa dạng thể loại.  
+          Trải nghiệm phim trực tuyến chuẩn 4K – cập nhật nhanh nhất 2024.
         </p>
 
         {/* Copyright */}
-        <div className="mt-6 text-[15px] text-white/60 text-center md:text-left">
-          © 2024 RoPhim
+        <div className="mt-8 text-center text-xs text-white/50">
+          © 2024 RoPhim – All rights reserved.
         </div>
       </div>
 
@@ -109,9 +128,9 @@ export default function Footer() {
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           aria-label="Scroll to top"
-          className="fixed bottom-4 right-4 md:bottom-6 md:right-6 grid h-12 w-12 place-items-center rounded-xl bg-white text-black shadow-lg ring-1 ring-black/10"
+          className="fixed bottom-5 right-5 grid h-12 w-12 place-items-center rounded-full bg-gradient-to-r from-pink-500 to-purple-600 text-white shadow-lg animate-pulse hover:scale-110 transition"
         >
-          ↑
+          <ArrowUp className="h-5 w-5" />
         </button>
       )}
     </footer>
