@@ -26,6 +26,8 @@ public class    Movie {
     private String overview;
     private LocalDate releaseDate;
     private Integer runTimeMin;
+    @Column(nullable = false,length = 255)
+    private String name;
     @Column(precision = 3, scale = 2)
     private BigDecimal ratingAvg = BigDecimal.ZERO;
     @Column(name = "poster_url")
@@ -34,10 +36,14 @@ public class    Movie {
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+    @ManyToOne
+    @JoinColumn(name = "poster_media_id")
+    private Media poster;
+    @Column(nullable = false,unique = true,length = 255)
+    private String slug;
     @ManyToMany
     @JoinTable(
             name = "movie_genres",
@@ -45,4 +51,5 @@ public class    Movie {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private List<Genre>genres=new ArrayList<>();
+
 }

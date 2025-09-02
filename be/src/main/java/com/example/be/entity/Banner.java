@@ -9,33 +9,39 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "episodes",
-uniqueConstraints = @UniqueConstraint(columnNames = {"season_id","episode_number"}))
+@Table(name = "banners",
+        indexes = @Index(name = "idx_banner_active", columnList = "position_id, is_active, starts_at, ends_at, sort_order"))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Episode {
+public class Banner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "season_id",nullable = false)
-    private Season season;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "movie_id",nullable = false)
-    private Movie movie;
-    @Column(name = "episode_number", nullable = false)
-    private Integer episodeNumber;
-    @Column(columnDefinition = "TEXT")
-    private String overview;
 
-    private Integer runtimeMin;
-    private LocalDate airDate;
+    @ManyToOne @JoinColumn(name = "position_id", nullable = false)
+    private BannerPosition position;
+    @Column(nullable = false, length = 255)
+    private String title;
+
+    @ManyToOne @JoinColumn(name = "image_media_id", nullable = false)
+    private Media image;
+
+    @Column(columnDefinition = "TEXT")
+    private String linkUrl;
+
+    private LocalDateTime startsAt;
+    private LocalDateTime endsAt;
+
+    @Column(nullable = false)
+    private Boolean isActive = Boolean.TRUE;
+
+    @Column(nullable = false)
+    private Integer sortOrder = 0;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
@@ -44,4 +50,5 @@ public class Episode {
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime updatedAt;
+
 }
