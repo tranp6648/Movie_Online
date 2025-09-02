@@ -1,5 +1,6 @@
 package com.example.be.entity;
 
+import com.example.be.Enum.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -8,6 +9,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
@@ -28,7 +30,10 @@ public class Account implements UserDetails {
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
+    private Gender gender;
+    private String fullName;
+    private String phone;
+    private LocalDate birthday;
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime updatedAt;

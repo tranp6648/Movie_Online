@@ -2,6 +2,7 @@ package com.example.be.controller;
 
 import com.example.be.config.JwtService;
 import com.example.be.dto.RequestResponse;
+import com.example.be.dto.request.Account.AccountDTO;
 import com.example.be.dto.request.LoginDTO;
 import com.example.be.dto.response.TokenResponse;
 import com.example.be.entity.Account;
@@ -28,7 +29,16 @@ public class AccountController {
     private JwtService jwtService;
     @Autowired
     private AuthenticationManager authenticationManager;
-
+    @PostMapping("/register")
+    public ResponseEntity<RequestResponse<Void>>register(@RequestBody AccountDTO accountDTO){
+        try {
+            accountService.save(accountDTO);
+            return ResponseEntity.ok(RequestResponse.success("Account registered successfully"));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(RequestResponse.error("An error occurred: " + e.getMessage()));
+        }
+    }
     @PostMapping("/login")
     public ResponseEntity<RequestResponse<TokenResponse>> login(@RequestBody LoginDTO loginDTO) {
         try {
