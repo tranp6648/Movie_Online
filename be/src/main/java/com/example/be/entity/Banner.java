@@ -30,15 +30,9 @@ public class Banner {
 
     @ManyToOne @JoinColumn(name = "image_media_id", nullable = false)
     private Media image;
-
-    @Column(columnDefinition = "TEXT")
-    private String linkUrl;
-
     private LocalDateTime startsAt;
     private LocalDateTime endsAt;
 
-    @Column(nullable = false)
-    private Boolean isActive = Boolean.TRUE;
 
     @Column(nullable = false)
     private Integer sortOrder = 0;
