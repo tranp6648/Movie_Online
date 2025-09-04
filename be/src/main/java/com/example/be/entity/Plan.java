@@ -1,5 +1,6 @@
 package com.example.be.entity;
 
+import com.example.be.Enum.DeviceType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "plans")
@@ -26,6 +28,12 @@ public class Plan {
     private int maxDevices;
     @Comment("Độ phân giải tối đa")
     private String maxResolution;
+    @ElementCollection(fetch = FetchType.EAGER, targetClass = DeviceType.class)
+    @CollectionTable(name = "plan_devices", joinColumns = @JoinColumn(name = "plan_id"))
+    @Enumerated(EnumType.STRING) // lưu tên enum thay vì ordinal
+    @Column(name = "device")
+    @Comment("Các loại thiết bị hỗ trợ")
+    private Set<DeviceType> devices;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

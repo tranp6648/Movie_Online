@@ -30,6 +30,7 @@ public class ContentLicense {
 
     private LocalDate startsAt;
     private LocalDate endsAt;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
