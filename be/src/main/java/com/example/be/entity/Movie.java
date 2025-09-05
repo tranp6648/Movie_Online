@@ -17,7 +17,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "movies")
-public class    Movie {
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -51,5 +51,7 @@ public class    Movie {
             inverseJoinColumns = @JoinColumn(name = "genre_id")
     )
     private List<Genre>genres=new ArrayList<>();
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id",nullable = false)
+    private Country country;
 }

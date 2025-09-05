@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.Set;
 
 @Data
-@RequiredArgsConstructor
 @NoArgsConstructor
 public class PlanUpdateRequest {
     private String name;

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "content_licenses",
-        indexes = @Index(name = "idx_license_movie_country", columnList = "movie_id, country"))
+        indexes = @Index(name = "idx_license_movie_country", columnList = "movie_id"))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
