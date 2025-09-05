@@ -28,6 +28,9 @@ public class People {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "photo_media_id")
     private Media photo;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "country_id")
+    private Country country;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

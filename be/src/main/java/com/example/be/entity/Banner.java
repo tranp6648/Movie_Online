@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "banners",
-        indexes = @Index(name = "idx_banner_active", columnList = "position_id, is_active, starts_at, ends_at, sort_order"))
+        indexes = @Index(name = "idx_banner_active", columnList = "position_id, starts_at, ends_at, sort_order"))
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
