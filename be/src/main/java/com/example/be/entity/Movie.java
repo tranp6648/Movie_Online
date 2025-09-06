@@ -30,8 +30,6 @@ public class Movie {
     private String name;
     @Column(precision = 3, scale = 2)
     private BigDecimal ratingAvg = BigDecimal.ZERO;
-    @Column(name = "poster_url")
-    private String posterUrl;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     @CreationTimestamp
     @Column(nullable = false, updatable = false)

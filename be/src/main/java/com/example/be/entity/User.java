@@ -25,6 +25,8 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "account_id",nullable = false)
     private Account account;
+    @Column(name = "name")
+    private String name;
     @Column(name = "maturity_rating")
     private String maturityRating;  // Giới hạn độ tuổi (G, PG, 13+, 18+...)
 
