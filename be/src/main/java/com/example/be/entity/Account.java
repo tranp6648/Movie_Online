@@ -1,5 +1,6 @@
 package com.example.be.entity;
 
+import com.example.be.Enum.AccountStatus;
 import com.example.be.Enum.Gender;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
@@ -30,10 +31,15 @@ public class Account implements UserDetails {
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false,length = 16)
     private Gender gender;
     private String fullName;
     private String phone;
     private LocalDate birthday;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false,length = 16)
+    private AccountStatus status=AccountStatus.ACTIVE;
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime updatedAt;
@@ -49,12 +55,12 @@ public class Account implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return this.status!=AccountStatus.INACTIVE;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return status!=AccountStatus.BLOCKED;
     }
 
     @Override
@@ -64,6 +70,6 @@ public class Account implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return this.status == AccountStatus.ACTIVE;
     }
 }

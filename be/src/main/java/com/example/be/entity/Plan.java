@@ -23,16 +23,15 @@ public class Plan {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private int priceCents;
     @Comment("số lượng thiết bị tối đa")
     private int maxDevices;
+    private String code;
     @Comment("Độ phân giải tối đa")
     private String maxResolution;
     @ElementCollection(fetch = FetchType.EAGER, targetClass = DeviceType.class)
     @CollectionTable(name = "plan_devices", joinColumns = @JoinColumn(name = "plan_id"))
-    @Enumerated(EnumType.STRING) // lưu tên enum thay vì ordinal
+    @Enumerated(EnumType.STRING)
     @Column(name = "device")
-    @Comment("Các loại thiết bị hỗ trợ")
     private Set<DeviceType> devices;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     @CreationTimestamp

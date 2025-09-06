@@ -28,6 +28,8 @@ public class Subscription {
     @ManyToOne
     @JoinColumn(name = "plan_id",nullable = false)
     private Plan plan;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false,length = 16)
     private SubscriptionStatus status;
     private LocalDate startDate;
     private LocalDate endDate;
