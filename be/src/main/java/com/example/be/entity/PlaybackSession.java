@@ -23,7 +23,7 @@ public class PlaybackSession {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
-    private User user;
+    private Account user;
     @Column(name = "device_id")
     private String deviceId;     // mã thiết bị do client sinh (tv/phone/...)
 

@@ -19,7 +19,7 @@ public class WatchProgress {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id",nullable = false)
-    private User user;
+    private Account user;
     private Long refOwner;
     private String refKind; // "title" | "episode"
 

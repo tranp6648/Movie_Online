@@ -29,7 +29,7 @@ public class Post {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "author_id",nullable = false)
-    private User author;
+    private Account author;
     @Column(nullable = false, length = 255)
     private String title;
     @Column(nullable = false, unique = true, length = 255)
