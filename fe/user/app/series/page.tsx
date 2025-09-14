@@ -1,0 +1,23 @@
+import SeriesGrid from "@/components/SeriesGrid";
+import { SERIES_DATA } from "@/data/SeriesData";
+
+export const metadata = {
+  title: "Phim bộ | RoPhim",
+};
+
+export default function SeriesPage(props: unknown) {
+  const searchParams = (props as { searchParams?: Record<string, string | string[] | undefined> }).searchParams;
+
+  const pageParam = searchParams?.page;
+  const page = Number(Array.isArray(pageParam) ? pageParam[0] : pageParam) || 1;
+
+  return (
+    <main className="mx-auto max-w-[1400px] px-4 pb-16 pt-18">
+      <h1 className="mb-4 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+        Phim bộ
+      </h1>
+
+      <SeriesGrid items={SERIES_DATA} page={page} perPage={32} basePath="/phim-bo" />
+    </main>
+  );
+}
