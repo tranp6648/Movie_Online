@@ -3,10 +3,12 @@ package com.example.be.controller;
 import com.example.be.config.JwtService;
 import com.example.be.dto.RequestResponse;
 import com.example.be.dto.request.Account.AccountDTO;
+import com.example.be.dto.request.Account.ResetPasswordDTO;
 import com.example.be.dto.request.LoginDTO;
 import com.example.be.dto.response.TokenResponse;
 import com.example.be.entity.Account;
 import com.example.be.service.AccountService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,10 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/account")
@@ -39,9 +39,37 @@ public class AccountController {
                     .body(RequestResponse.error("An error occurred: " + e.getMessage()));
         }
     }
+    @PostMapping("/reset-password-active-account")
+    public ResponseEntity<RequestResponse<Void>>resetPasswordForActiveAccount(@Valid @RequestBody ResetPasswordDTO resetPasswordDTO, @RequestParam String token, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            String errorMessage=bindingResult.getFieldErrors().stream()
+                    .map(error->error.getDefaultMessage())
+                    .findFirst()
+                    .orElse("Dữ liệu không hợp lệ");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(RequestResponse.error(errorMessage));
+        }
+        try {
+            accountService.resetPasswordforActiveAccount(token, resetPasswordDTO);
+            return ResponseEntity.ok(RequestResponse.success("Account reset successfully"));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(RequestResponse.error("An error occurred: " + e.getMessage()));
+        }
+    }
+    @GetMapping("/validate-token")
+    public ResponseEntity<RequestResponse<Void>>validateToken(@RequestParam("token") String token){
+        try{
+            accountService.validateActivationToken(token);
+            return ResponseEntity.ok(RequestResponse.success("Token validated successfully"));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(RequestResponse.error("An error occurred: " + e.getMessage()));
+        }
+    }
     @PostMapping("/login")
     public ResponseEntity<RequestResponse<TokenResponse>> login(@RequestBody LoginDTO loginDTO) {
         try {
+
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(
                             loginDTO.getUsername(),

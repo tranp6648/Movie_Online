@@ -18,7 +18,7 @@ public class Rating {
     private Long id;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Account user;
     @ManyToOne
     @JoinColumn(name = "movie_id",nullable = false)
     private Movie movie;

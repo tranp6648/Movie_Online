@@ -2,7 +2,8 @@ package com.example.be.config;
 
 public class APIURL {
     public static final String[] URL_ANONYMOUS_POST = {
-            "/register",
+            "/api/account/register",
+            "/api/account/login",
     };
     public static final String[] URL_SUPERADMIN_GET={
     };
