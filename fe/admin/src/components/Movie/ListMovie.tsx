@@ -3,16 +3,8 @@
 import { useMemo, useState } from "react";
 import { Column, DataTable, SortState } from "@/components/ui/table/DataTable";
 import Pagination from "@/components/ui/table/Pagination";
+import { Movie } from "@/type/Movie/movie";
 
-type Movie = {
-  id: number;
-  title: string;
-  rating: number;
-  category: string;
-  views: number;
-  status: "Visible" | "Hidden";
-  created: string;
-};
 
 const ALL: Movie[] = Array.from({ length: 50 }).map((_, i) => ({
   id: i + 1,
