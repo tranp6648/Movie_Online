@@ -1,10 +1,12 @@
 package com.example.be.controller;
 
 import com.example.be.config.JwtService;
+import com.example.be.dto.PageResponse;
 import com.example.be.dto.RequestResponse;
 import com.example.be.dto.request.Account.AccountDTO;
 import com.example.be.dto.request.Account.ResetPasswordDTO;
 import com.example.be.dto.request.LoginDTO;
+import com.example.be.dto.response.Account.AccountResponse;
 import com.example.be.dto.response.TokenResponse;
 import com.example.be.entity.Account;
 import com.example.be.service.AccountService;
@@ -34,6 +36,20 @@ public class AccountController {
         try {
             accountService.save(accountDTO);
             return ResponseEntity.ok(RequestResponse.success("Account registered successfully"));
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(RequestResponse.error("An error occurred: " + e.getMessage()));
+        }
+    }
+    @GetMapping("/getAll")
+    public ResponseEntity<RequestResponse<PageResponse<AccountResponse>>>getAll( @RequestParam(defaultValue = "1") int page,
+                                                                                 @RequestParam(defaultValue = "5") int size,
+                                                                                 @RequestParam(defaultValue = "id,desc") String sort,
+                                                                                 @RequestParam(required = false) String filter,
+                                                                                 @RequestParam(required = false) String search,
+                                                                                 @RequestParam(required = false) boolean all){
+        try {
+            return ResponseEntity.ok(RequestResponse.success(new PageResponse<>(accountService.getAll(page, size, sort, filter, search, all))));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(RequestResponse.error("An error occurred: " + e.getMessage()));

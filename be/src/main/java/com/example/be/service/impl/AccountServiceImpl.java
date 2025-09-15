@@ -1,8 +1,10 @@
 package com.example.be.service.impl;
 
 import com.example.be.Enum.AccountStatus;
+import com.example.be.config.SearchHelper;
 import com.example.be.dto.request.Account.AccountDTO;
 import com.example.be.dto.request.Account.ResetPasswordDTO;
+import com.example.be.dto.response.Account.AccountResponse;
 import com.example.be.entity.Account;
 import com.example.be.entity.Role;
 import com.example.be.exception.ErrorHandler;
@@ -12,9 +14,14 @@ import com.example.be.properties.AccountProperties;
 import com.example.be.repository.AccountRepository;
 import com.example.be.repository.RoleRepository;
 import com.example.be.service.AccountService;
+import io.github.perplexhub.rsql.RSQLJPASupport;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +29,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -35,6 +43,7 @@ public class AccountServiceImpl implements AccountService {
     private final EmailService emailService;
     private final AccountProperties accountProperties;
     private final PasswordEncoder passwordEncoder;
+    private static final List<String>SEARCH_FIELDS=List.of("email","fullName","phone");
     @Override
     public Account findByEmail(String email) {
         log.info("get account by email {}", email);
@@ -93,6 +102,23 @@ public class AccountServiceImpl implements AccountService {
         account.setActivationToken(null);
         account.setActivationTokenExpiry(null);
         return accountRepository.save(account);
+    }
+
+    @Override
+    public Page<AccountResponse> getAll(int page, int size, String sort, String filter, String search, boolean all) {
+        try {
+            log.info("start get all accounts");
+            Specification<Account>sortable= RSQLJPASupport.toSort(sort);
+            Specification<Account>filterable= RSQLJPASupport.toSpecification(filter);
+            Specification<Account>searchable= SearchHelper.parseSearchToken(search, SEARCH_FIELDS);
+            Pageable pageable = all ? Pageable.unpaged() : PageRequest.of(page - 1, size);
+            return accountRepository
+                    .findAll(sortable.and(filterable).and(searchable),pageable)
+                    .map(accountMapper::toResponse);
+        }catch (Exception e){
+            log.error("get account list error:{}",e.getMessage());
+            throw e;
+        }
     }
 
     @Override
