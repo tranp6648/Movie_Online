@@ -3,6 +3,7 @@ export type GetAllOptions={
     size?:number;
     sort?:string;
     filter?:string;
-    search?:string;
+    searchField?:string;
+    searchValue?:string
     all?:boolean;
 }
