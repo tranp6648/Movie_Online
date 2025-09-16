@@ -19,7 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class GenreController {
     @Autowired
     private GenreService genreService;
-    @PostMapping(value = "/create",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping(value = "/create")
     public ResponseEntity<RequestResponse<Void>> create(@RequestBody GenreRequest genreRequest){
         try {
             genreService.save(genreRequest);
@@ -53,10 +53,11 @@ public class GenreController {
                                                                        @RequestParam(defaultValue = "5") int size,
                                                                        @RequestParam(defaultValue = "id,desc") String sort,
                                                                        @RequestParam(required = false) String filter,
-                                                                       @RequestParam(required = false) String search,
+                                                                       @RequestParam(required = false)  String searchField,
+                                                                       @RequestParam(required = false)  String searchValue,
                                                                        @RequestParam(required = false) boolean all){
         try {
-            return ResponseEntity.ok(RequestResponse.success(new PageResponse<>(genreService.findAll(page,size,sort,filter,search,all))));
+            return ResponseEntity.ok(RequestResponse.success(new PageResponse<>(genreService.findAll(page,size,sort,filter,searchField,searchValue,all))));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(RequestResponse.error("An error occurred: " + e.getMessage()));

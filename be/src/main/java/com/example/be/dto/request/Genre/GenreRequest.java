@@ -11,5 +11,4 @@ import lombok.NoArgsConstructor;
 @Builder
 public class GenreRequest {
     private String name;
-    private String slug;
 }

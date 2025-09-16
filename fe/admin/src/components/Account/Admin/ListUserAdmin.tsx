@@ -5,6 +5,7 @@ import { getAll } from "@/service/api/Authenticate";
 import { AccountResponse } from "@/type/Account/AccountResponse";
 import { useEffect, useMemo, useState } from "react";
 import CustomSelect, { Option } from "@/components/ui/CustomSelect";
+import { useRouter } from "next/navigation"; 
 
 const genderOptions: Option[] = [
   { value: "", label: "Giới tính (Tất cả)" },
@@ -25,6 +26,7 @@ const ListUserAdmin = () => {
   const [loading, setLoading] = useState(false);
 
   const [page, setPage] = useState(1);
+  const router=useRouter();
   const [pageSize, setPageSize] = useState(5);
   const [totalElements, setTotalElements] = useState(0);
 
@@ -47,7 +49,7 @@ const ListUserAdmin = () => {
         size: pageSize,
         filter: filters.join(";"),
         sort: sort ? `${sort.key},${sort.dir}` : "id,desc",
-        search: search || undefined,
+        searchValue: search || undefined,
       });
 
       const list: AccountResponse[] = (res?.data?.content || []).map((item: any) => ({
@@ -63,10 +65,10 @@ const ListUserAdmin = () => {
           item.status === "ACTIVE"
             ? "Hoạt động"
             : item.status === "INACTIVE"
-            ? "Chưa kích hoạt"
-            : item.status === "BLOCKED"
-            ? "Bị khóa"
-            : "Không xác định",
+              ? "Chưa kích hoạt"
+              : item.status === "BLOCKED"
+                ? "Bị khóa"
+                : "Không xác định",
       }));
 
       setUsers(list);
@@ -106,8 +108,8 @@ const ListUserAdmin = () => {
             ${r.status.includes("Hoạt động")
               ? "text-green-400 bg-green-400/10"
               : r.status.includes("Chưa")
-              ? "text-yellow-400 bg-yellow-400/10"
-              : "text-red-400 bg-red-400/10"}`}
+                ? "text-yellow-400 bg-yellow-400/10"
+                : "text-red-400 bg-red-400/10"}`}
         >
           {r.status}
         </span>
@@ -147,6 +149,15 @@ const ListUserAdmin = () => {
               onChange={setStatus}
               placeholder="Trạng thái (Tất cả)"
             />
+          </div>
+          <div className="ml-auto">
+            <button
+              onClick={() => router.push('/dashboard/admin/add')}
+              // hoặc dùng useRouter().push("/users/create")
+              className="px-4 py-2 rounded-md bg-sky-600 text-white hover:bg-sky-500 text-sm font-medium"
+            >
+              + Tạo mới
+            </button>
           </div>
         </div>
 
