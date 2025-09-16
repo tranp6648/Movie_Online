@@ -2,6 +2,7 @@
 
 import { register } from "@/service/api/Authenticate";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 import React, { useState, ChangeEvent, FormEvent } from "react";
 
 interface AdminFormData {
@@ -31,7 +32,7 @@ const AddUserAdmin = ({
         birthday: "",
         idRole: 3,
     });
-
+    const router=useRouter();
     const handleInputChange = (
         e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
@@ -49,13 +50,13 @@ const AddUserAdmin = ({
             sessionStorage.setItem(
                 "notification",
                 JSON.stringify({
-                  title: "Tạo tài khoản",
-                  message: response.data.message,
-                  type: "success",
+                    title: "Tạo tài khoản",
+                    message: response.data.message,
+                    type: "success",
                 })
-              );
-    
-              window.location.reload();
+            );
+
+            window.location.reload();
         } catch (err) {
             if (axios.isAxiosError(err)) {
                 openModal?.(
@@ -152,14 +153,19 @@ const AddUserAdmin = ({
                                 className={inputClass}
                             />
                         </div>
-
-                        {/* Buttons */}
                         <div className="col-span-3 flex space-x-4">
                             <button
                                 type="submit"
                                 className="bg-[#2f80ed] hover:bg-white text-white hover:text-black py-3 px-6 rounded-[16px] font-semibold transition"
                             >
                                 Lưu
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => router.back()} // hoặc router.push("/users")
+                                className="bg-gray-600 hover:bg-gray-500 text-white py-3 px-6 rounded-[16px] font-semibold transition"
+                            >
+                                Trở về
                             </button>
                         </div>
                     </form>

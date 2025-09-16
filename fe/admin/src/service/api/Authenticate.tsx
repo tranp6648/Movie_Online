@@ -24,13 +24,14 @@ export const getAll=async(options:GetAllOptions={})=>{
         size = 5,
         sort = "id,desc",
         filter,
-        search,
+        searchField,
+        searchValue,
         all = false,
       } = options;
       const res=await Http.get("/api/account/getAll",{
         skipAuth:true,
         withCredentials:true,
-        params:{page,size,sort,filter,search,all},
+        params:{page,size,sort,filter,searchField,searchValue,all},
         
       })
       return res.data;

@@ -3,6 +3,7 @@ package com.example.be.service.impl;
 import com.example.be.config.SearchHelper;
 import com.example.be.dto.request.Genre.GenreRequest;
 import com.example.be.entity.Genre;
+import com.example.be.helper.GeneralService;
 import com.example.be.mapper.GenreMapper;
 import com.example.be.repository.GenreRepository;
 import com.example.be.service.GenreService;
@@ -28,6 +29,7 @@ public class GenreServiceImpl implements GenreService {
     public void save(GenreRequest genreRequest) {
         try {
             Genre genre = genreMapper.toEntity(genreRequest);
+            genre.setSlug(GeneralService.toSlug(genreRequest.getName()));
             genreRepository.save(genre);
         }catch (Exception e){
             e.printStackTrace();
@@ -39,6 +41,9 @@ public class GenreServiceImpl implements GenreService {
         try {
             Genre genre=genreRepository.getReferenceById(id);
             genreMapper.update(genreRequest,genre);
+            if(genreRequest.getName()!=null && !genreRequest.getName().isBlank()){
+                genre.setSlug(GeneralService.toSlug(genreRequest.getName()));
+            }
             genreRepository.save(genre);
         }catch (Exception e){
             e.printStackTrace();
@@ -46,11 +51,11 @@ public class GenreServiceImpl implements GenreService {
     }
 
     @Override
-    public Page<Genre> findAll(Integer page, Integer size, String sort, String filter, String search, boolean all) {
+    public Page<Genre> findAll(Integer page, Integer size, String sort, String filter, String searchField, String searchValue, boolean all) {
         try {
             Specification<Genre> sortable= RSQLJPASupport.toSort(sort);
             Specification<Genre>filterable= RSQLJPASupport.toSpecification(filter);
-            Specification<Genre>searchable= SearchHelper.parseSearchToken(search, SEARCH_FIELDS);
+            Specification<Genre>searchable= SearchHelper.buildSearchSpec(searchField,searchValue,SEARCH_FIELDS);
             Pageable pageable = all ? Pageable.unpaged() : PageRequest.of(page - 1, size);
             Page<Genre>response=genreRepository.findAll(sortable.and(filterable).and(searchable), pageable);
             return response;
