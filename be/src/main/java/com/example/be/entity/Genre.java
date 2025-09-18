@@ -31,7 +31,7 @@ public class Genre {
     @CreationTimestamp
     @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Ho_Chi_Minh")
     @UpdateTimestamp
     @Column(nullable = false)
     private LocalDateTime updatedAt;
