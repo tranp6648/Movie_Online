@@ -21,6 +21,7 @@ type DataTableProps<T> = {
   className?: string;
   loading?: boolean;
   error?: string | null;
+  onRowClick?: (row: T, rowIndex?: number) => void;
 };
 
 export function DataTable<T extends { id?: string | number }>({
@@ -33,6 +34,7 @@ export function DataTable<T extends { id?: string | number }>({
   className = "",
   loading = false,
   error = null,
+  onRowClick
 }: DataTableProps<T>) {
   const handleSort = (col: Column<T>) => {
     if (!col.sortable || !onSortChange) return;
@@ -128,9 +130,13 @@ export function DataTable<T extends { id?: string | number }>({
             ) : (
               data.map((row, rowIndex) => (
                 <tr
-                  key={(row.id as string) ?? rowIndex}
-                  className="border-t border-[#151f30] hover:bg-[#141823] transition-colors"
-                >
+                key={(row.id as string) ?? rowIndex}
+                className={`border-t border-[#151f30] hover:bg-[#141823] transition-colors ${
+                  onRowClick ? "cursor-pointer" : ""
+                }`}
+                onClick={() => onRowClick?.(row, rowIndex)}
+              >
+
                   {columns.map((c) => (
                     <td
                       key={String(c.key)}

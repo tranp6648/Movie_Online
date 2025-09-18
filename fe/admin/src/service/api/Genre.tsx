@@ -8,6 +8,19 @@ export const createGenre=async(name:string)=>{
     )
     return response.data;
 }
+export const getById=async(id:number)=>{
+  const response=await Http.get(
+    `/api/genre/findById/${id}`,
+    {skipAuth:true,withCredentials:true}
+  );
+  return response.data;
+}
+export const updateGenre=async(id:number,genre:any)=>{
+  const response=await Http.put(
+    `/api/genre/update/${id}`,genre
+  )
+  return response.data
+}
 export const getAll=async(options:GetAllOptions={})=>{
     const {
         page = 1,
